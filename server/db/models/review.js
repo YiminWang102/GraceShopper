@@ -9,7 +9,7 @@ module.exports = db.define('review', {
     allowNull: false,
     validate: {
       hasEnoughCharacters(value){
-        if(value.length < NUM_CHARS) throw new Error(`Review must be at least ${NUM_CHARS} characters`);
+        if (value.length < NUM_CHARS) throw new Error(`Review must be at least ${NUM_CHARS} characters`);
       }
     }
   },
