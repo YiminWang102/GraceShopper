@@ -51,4 +51,5 @@ router.delete('/:productId', (req, res, next) => {
   .then(() => {
     res.sendStatus(202)
   })
+  .catch(next)
 })
