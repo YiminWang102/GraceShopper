@@ -33,7 +33,7 @@ router.get('/:productId', (req, res, next) => {
 router.post('/', (req, res, next) => {
   Product.create(req.body)
   .then(createdProduct => {
-    res.status(204).json(createdProduct)
+    res.status(200).json(createdProduct)
   })
   .catch(next)
 })
@@ -41,7 +41,7 @@ router.post('/', (req, res, next) => {
 router.put('/:productId', (req, res, next) => {
   req.product.update(req.body, {returning: true})
   .then(result => {
-    res.json(result[1])
+    res.json(result)
   })
   .catch(next)
 })
