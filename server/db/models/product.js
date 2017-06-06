@@ -32,7 +32,7 @@ module.exports = db.define('product', {
     }
   },
   category: {
-    type: Sequelize.STRING,
+    type: Sequelize.ARRAY(Sequelize.STRING),
     allowNull: false,
   }
 });
