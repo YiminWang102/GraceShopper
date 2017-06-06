@@ -31,6 +31,10 @@ module.exports = db.define('user', {
   isAdmin: {
     type: Sequelize.BOOLEAN,
     defaultValue: false
+  },
+  resetPassword: {
+    type: Sequelize.BOOLEAN,
+    defaultValue: false
   }
 }, {
   instanceMethods: {
