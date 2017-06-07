@@ -1,0 +1,21 @@
+* {
+  box-sizing: border-box; }
+
+body {
+  background: #ffedc6;
+  padding-bottom: 56px; }
+
+.navbar {
+  background: #146c9b
+}
+#main {
+  padding-left: 0; }
+
+.clearer { clear: both; }
+.container-fluid {
+  padding-top: 10%;
+}
+.dropdown:hover .dropdown-menu {
+    display: block;
+    margin-top: 0;
+ }
