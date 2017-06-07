@@ -6,8 +6,9 @@
   "scripts": {
     "start": "webpack -w & nodemon server",
     "start-server": "nodemon server",
-    "build-client": "webpack",
+    "build-client": "webpack -w",
     "start-dev": "NODE_ENV='development' nodemon server",
+    "build-all-dev" : "webpack -w & NODE_ENV='development' nodemon server",
     "test": "DATABASE_URL='postgres://localhost:5432/boilermaker-test' mocha ./**/*.spec.js --compilers js:babel-register"
   },
   "author": "",

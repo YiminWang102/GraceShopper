@@ -5,7 +5,7 @@ module.exports = router;
 router.param('userId', (req, res, next, id) => {
   User.findById(id)
     .then(user => {
-      if(!user) {
+      if (!user) {
         const err = Error('User not found');
         err.status = 404;
         throw err;
@@ -35,8 +35,10 @@ router.post('/', (req, res, next) => {
     .catch(next);
 });
 
-//TODO make sure only admins can hit this route
-//TODO maybe users can hit this route to change their password (we'll see)
+/*
+* TODO: make sure only admins can hit this route
+* TODO: maybe users can hit this route to change their password (we'll see);
+*/
 router.put('/:userId', (req, res, next) => {
   req.user.update(req.body)
     .then( () => {
@@ -45,7 +47,7 @@ router.put('/:userId', (req, res, next) => {
     .catch(next);
 });
 
-//TODO make sure only admins can hit this route
+// TODO: make sure only admins can hit this route
 router.delete('/:userId', (req, res, next) => {
   req.user.destroy()
     .then( () => {
