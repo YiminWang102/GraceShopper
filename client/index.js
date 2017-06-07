@@ -7,11 +7,15 @@ import { Router, Route, browserHistory, IndexRoute, IndexRedirect } from 'react-
 import store from './store';
 import { Main, Login, Signup, UserHome } from './components';
 import { me } from './reducer/user';
+import axios from 'axios';
+
 
 import App from './components/App';
 
 import ProductsContainer from './containers/ProductsContainer';
 import ProductContainer from './containers/ProductContainer';
+
+import { receiveProducts, getProductById, loadAllProducts } from './action-creators/products';
 
 
 const whoAmI = store.dispatch(me());
@@ -25,11 +29,24 @@ const requireLogin = (nextRouterState, replace, next) =>
     })
     .catch(err => console.log(err));
 
+const onAppEnter = () => {
+  console.log('hit onAppEnter')
+  const gettingProducts = axios.get('/api/products');
+
+
+  return Promise
+    .all([gettingProducts])
+    .then(responses => responses.map(res => res.data))
+    .then(([products]) => {
+      store.dispatch(receiveProducts(products));
+    })
+    .catch(err => console.log(err));
+};
 
 ReactDOM.render(
   <Provider store={store}>
     <Router history={browserHistory}>
-      <Route path="/" component={App}>
+      <Route path="/" component={App} onEnter={onAppEnter}>
         <Route path="/products" component={ProductsContainer} />
         <Route path="/products/1" component={ProductContainer} />
 
