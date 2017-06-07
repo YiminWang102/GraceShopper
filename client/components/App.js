@@ -8,7 +8,7 @@ export default function App ({ children }) {
       <div>
         <NavbarContainer />
       </div>
-      <div className="col-xs-10">
+      <div className="col-xs-12">
         { children }
       </div>
     </div>
