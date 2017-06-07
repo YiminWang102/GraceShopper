@@ -1,12 +1,8 @@
 const Sequelize = require('sequelize');
 const db = require('../db');
 
-/** 
-
-TODO
-- create instance method for calculatingTotalPrice
-
-*/
+const OrderProduct = require('./orderproduct');
+const Product = require('./product');
 
 module.exports = db.define('order', {
   shippingInfo: {
@@ -20,7 +16,31 @@ module.exports = db.define('order', {
     allowNull: false
   },
   status: {
-    type: Sequelize.ENUM('CREATED, PROCESSING, CANCELLED, COMPLETED'),
+    type: Sequelize.STRING, 
+    defaultValue: 'CREATED',
     allowNull: false
+  }
+}, {
+  instanceMethods: {
+    calculateTotalPrice: function() {
+      OrderProduct.findAll({
+        where: {
+          orderId: this.id
+        }
+      })
+       .then(itemsInOrder => {
+         let totalPrice = 0;
+         itemsInOrder.forEach(item => {
+          Product.findById(item.productId)
+            .then(productInfo => {
+               totalPrice += item.quantity * productInfo.price;
+            })
+         })
+         return totalPrice / 100;
+       })
+       .catch(err => {
+        console.error(err);
+       })
+    }
   }
 });
