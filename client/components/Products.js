@@ -20,7 +20,7 @@ let productsDummy = [{
 ]
 export default function Products (props) {
 
-  const products = productsDummy;
+  const products = props.products;
   return (
     <div>
       <h3>Products</h3>
