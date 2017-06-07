@@ -21,7 +21,6 @@ module.exports = db.define('order', {
   },
   status: {
     type: Sequelize.ENUM('CREATED, PROCESSING, CANCELLED, COMPLETED'),
-    defaultValue: 'CREATED',
     allowNull: false
   }
 });
