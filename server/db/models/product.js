@@ -10,7 +10,7 @@ module.exports = db.define('product', {
     type: Sequelize.TEXT,
     allowNull: false
   },
-  quantity: {
+  inventory: {
     type: Sequelize.INTEGER,
     allowNull: false,
     validate: {
@@ -35,5 +35,12 @@ module.exports = db.define('product', {
     type: Sequelize.STRING,
     defaultValue: '',
     allowNull: false
+  },
+  rating: {
+    type: Sequelize.INTEGER,
+    validate: {
+      min: 1,
+      max: 500,
+    }
   }
 });

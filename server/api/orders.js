@@ -1,4 +1,7 @@
 const Order = require('../db/models/order');
+const OrderProduct = require('../db/models/orderproduct');
+// const Product = require('../db/models/product');
+
 const router = require('express').Router();
 
 module.exports = router;
@@ -27,7 +30,14 @@ router.get('/', (req, res, next) => {
 });
 
 router.get('/:orderId', (req, res, next) => {
-  res.status(200).json(req.order);
+  OrderProduct.findAll({
+    where: {
+      orderId: req.order.id
+    }
+  })
+    .then(foundProducts => {
+      res.status(200).json({user: req.order.userId, products: foundProducts});
+    })
 });
 
 router.post('/', (req, res, next) => {
@@ -38,12 +48,59 @@ router.post('/', (req, res, next) => {
     .catch(next)
 });
 
-router.put('/:orderId', (req, res, next) => {
-  req.order.update(req.body, {returning: true})
-    .then(result => {
-      res.json(result)
+router.post('/:orderId', (req, res, next) => {
+  const {quantity, productId} = req.body;
+  OrderProduct.create({
+    quantity,
+    productId,
+    orderId: req.order.id
+  })
+    .then(() => {
+      res.status(200).send(`Product ID: ${req.body.productId} added to order ${req.order.id}`)
     })
-    .catch(next)
+    .catch(next);
+});
+
+router.put('/:orderId', (req, res, next) => {
+
+  // If product is being changed....
+  if (req.body.productId) {
+    OrderProduct.findOne({
+      where: {
+        orderId: req.order.id,
+        productId: req.body.productId
+      }
+    })
+      .then(foundProductRow => { 
+        // User trying to remove item from order...
+        if (req.body.quantity <= 0) {
+          foundProductRow.destroy()
+            .then(() => {
+              res.status(202).send(`Deleted product ${req.body.productId} from OrderProduct`);
+            })
+        }
+        // Else, update quantity of product in this order...
+        else {
+          foundProductRow.update(req.body.quantity)
+            .then(() => {
+              res.status(200).send(`Updated quantity of Product ${req.body.productId} in OrderProduct`);
+            })
+        }
+      })
+      .catch(next);
+  }
+  // If admin is changing status of this order...
+  else if (req.body.status !== req.order.status) {
+    req.order.update(req.body, {returning: true})
+      .then(result => {
+        res.json(result)
+      })
+      .catch(next)
+  }
+  // Nothing was done...
+  else {
+    res.sendStatus(304);
+  }
 });
 
 router.delete('/:orderId', (req, res, next) => {
