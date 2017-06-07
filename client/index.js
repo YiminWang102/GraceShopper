@@ -8,9 +8,11 @@ import store from './store';
 import { Main, Login, Signup, UserHome } from './components';
 import { me } from './reducer/user';
 
-import App from './components/App'
+import App from './components/App';
 
-import ProductsContainer from './containers/ProductsContainer'
+import ProductsContainer from './containers/ProductsContainer';
+import ProductContainer from './containers/ProductContainer';
+
 
 const whoAmI = store.dispatch(me());
 
@@ -29,6 +31,7 @@ ReactDOM.render(
     <Router history={browserHistory}>
       <Route path="/" component={App}>
         <Route path="/products" component={ProductsContainer} />
+        <Route path="/products/1" component={ProductContainer} />
 
         <IndexRedirect to="/products" />
       </Route>
