@@ -10,7 +10,7 @@ module.exports = db.define('product', {
     type: Sequelize.TEXT,
     allowNull: false
   },
-  quantity: {
+  inventory: {
     type: Sequelize.INTEGER,
     allowNull: false,
     validate: {
