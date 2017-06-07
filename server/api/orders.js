@@ -55,7 +55,7 @@ router.post('/:orderId', (req, res, next) => {
     productId,
     orderId: req.order.id
   })
-    .then( () => {
+    .then(() => {
       res.status(200).send(`Product ID: ${req.body.productId} added to order ${req.order.id}`)
     })
     .catch(next);

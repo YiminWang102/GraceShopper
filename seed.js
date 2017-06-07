@@ -5,15 +5,15 @@ const User = require('./server/db/models/user');
 
 const data = {
     products: [
-        {title: 'Meme1', description: 'Dank', quantity: 9001, price: 1337, category: 'dank,meme,forever'},
-        {title: 'Meme2', description: 'Dank', quantity: 9001, price: 1337, category: 'dank,meme,forever'},
-        {title: 'Meme3', description: 'Dank', quantity: 9001, price: 1337, category: 'dank,meme,forever'},
-        {title: 'Meme4', description: 'Dank', quantity: 9001, price: 1337, category: 'dank,meme,forever'},
-        {title: 'Meme5', description: 'Dank', quantity: 9001, price: 1337, category: 'dank,meme,forever'},
-        {title: 'Meme6', description: 'Dank', quantity: 9001, price: 1337, category: 'dank,meme,forever'},
-        {title: 'Meme7', description: 'Dank', quantity: 9001, price: 1337, category: 'dank,meme,forever'},
-        {title: 'Meme8', description: 'Dank', quantity: 9001, price: 1337, category: 'dank,meme,forever'},
-        {title: 'Meme9', description: 'Dank', quantity: 9001, price: 1337, category: 'dank,meme,forever'}
+        {title: 'Meme1', description: 'Dank', inventory: 9001, price: 1337, category: 'dank,meme,forever'},
+        {title: 'Meme2', description: 'Dank', inventory: 9001, price: 1337, category: 'dank,meme,forever'},
+        {title: 'Meme3', description: 'Dank', inventory: 9001, price: 1337, category: 'dank,meme,forever'},
+        {title: 'Meme4', description: 'Dank', inventory: 9001, price: 1337, category: 'dank,meme,forever'},
+        {title: 'Meme5', description: 'Dank', inventory: 9001, price: 1337, category: 'dank,meme,forever'},
+        {title: 'Meme6', description: 'Dank', inventory: 9001, price: 1337, category: 'dank,meme,forever'},
+        {title: 'Meme7', description: 'Dank', inventory: 9001, price: 1337, category: 'dank,meme,forever'},
+        {title: 'Meme8', description: 'Dank', inventory: 9001, price: 1337, category: 'dank,meme,forever'},
+        {title: 'Meme9', description: 'Dank', inventory: 9001, price: 1337, category: 'dank,meme,forever'}
     ],
     users: [
         {name: "Andrew", email: 'andrew@andrew.com'},
