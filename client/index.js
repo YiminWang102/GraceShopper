@@ -43,12 +43,17 @@ const onAppEnter = () => {
     .catch(err => console.log(err));
 };
 
+const onProductEnter = nextRouterState => {
+  const productId = nextRouterState.params.productId;
+  store.dispatch(getProductById(productId));
+}
+
 ReactDOM.render(
   <Provider store={store}>
     <Router history={browserHistory}>
       <Route path="/" component={App} onEnter={onAppEnter}>
         <Route path="/products" component={ProductsContainer} />
-        <Route path="/products/1" component={ProductContainer} />
+        <Route path="/products/:productId" component={ProductContainer} onEnter={onProductEnter} />
 
         <IndexRedirect to="/products" />
       </Route>

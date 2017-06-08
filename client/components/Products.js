@@ -28,7 +28,7 @@ export default function Products (props) {
         {
           products && products.map(product => (
             <div className="col-xs-4" key={ product.id }>
-              <Link className="thumbnail" to={`/products/`}>
+              <Link className="thumbnail" to={`/products/${product.id}`}>
 
                 <img src={ product.imageUrl }/>
                 <div className="caption">
