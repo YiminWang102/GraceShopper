@@ -15,6 +15,7 @@ import App from './components/App';
 import ProductsContainer from './containers/ProductsContainer';
 import ProductContainer from './containers/ProductContainer';
 import OrdersContainer from './containers/OrdersContainer';
+import OrderContainer from './containers/OrderContainer';
 
 import { receiveProducts, getProductById, loadAllProducts } from './action-creators/products';
 
@@ -57,6 +58,7 @@ ReactDOM.render(
         <Route path="/products/:productId" component={ProductContainer} onEnter={onProductEnter} />
 
         <Route path="/tempOrders" component={OrdersContainer} />
+        <Route path="/tempOrders/tempOrder" component={OrderContainer} />
         <IndexRedirect to="/products" />
       </Route>
       {/*<Route path="/" component={Main}>

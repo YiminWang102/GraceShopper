@@ -21,12 +21,12 @@ export default function Orders (props) {
       <h3>Orders</h3>
       <div className="row">
         {
-          orders && orders.map( (order, i) => (
+          orders && orders.map( order => (
             <div className="col-xs-4" key={ order.id }>
               <Link to={`/orders/${order.id}`}>
                 <div className="orderInfo">
                   <h5>
-                    <span>Order #{i + 1}: Total Price: ${order.totalPrice}</span>
+                    <span>Order placed on {order.createdAt}: Total Price: ${order.totalPrice}</span>
                   </h5>
                 </div>
               </Link>
