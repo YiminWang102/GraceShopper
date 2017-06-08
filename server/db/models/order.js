@@ -16,8 +16,8 @@ module.exports = db.define('order', {
     allowNull: false
   },
   status: {
-    type: Sequelize.STRING,
-    defaultValue: 'CREATED',
+    type: Sequelize.INTEGER, // 1: Created, 2: Processing, 3: Cancelled, 4, Completed
+    defaultValue: 1,
     allowNull: false
   },
   totalPrice: {
