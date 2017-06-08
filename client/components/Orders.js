@@ -1,21 +1,10 @@
 import React from 'react';
 import {Link} from 'react-router';
 
-const fakeOrders = [
-  {
-    id: 1,
-    totalPrice: 500,
-    createdAt: Date.now()
-  }, {
-    id: 2,
-    totalPrice: 850,
-    createdAt: Date.now()
-  },
-];
 
 export default function Orders (props) {
 
-  const orders = fakeOrders;
+  const orders = props.orders;
   return (
     <div>
       <h3>Orders</h3>

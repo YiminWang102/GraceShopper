@@ -1,13 +1,15 @@
 const Order = require('../db/models/order');
 const OrderProduct = require('../db/models/orderproduct');
-// const Product = require('../db/models/product');
+const Product = require('../db/models/product');
 
 const router = require('express').Router();
 
 module.exports = router;
 
 router.param('orderId', (req, res, next, id) => {
-  Order.findById(id)
+  Order.findById(id, {
+    include: [Product]
+  })
     .then(order => {
       if (!order) {
         const err = Error('order not found');
@@ -30,16 +32,7 @@ router.get('/', (req, res, next) => {
 });
 
 router.get('/:orderId', (req, res, next) => {
-  OrderProduct.findAll({
-    where: {
-      orderId: req.order.id
-    }
-  })
-    .then(foundProducts => {
-      req.order.products = foundProducts;
-      res.json(req.order);
-    })
-    .catch(next);
+  res.json(req.order);
 });
 
 router.get('/user/:userId', (req, res, next) => {
@@ -57,7 +50,7 @@ router.get('/user/:userId', (req, res, next) => {
 router.post('/', (req, res, next) => {
   Order.create(req.body)
     .then(createdOrder => {
-      res.status(201).json(createdOrder)
+      res.status(201).json(createdOrder);
     })
     .catch(next);
 });

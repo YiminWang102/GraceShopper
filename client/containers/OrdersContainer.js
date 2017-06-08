@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 
 const mapStateToProps = (state) => {
   return {
+    orders: state.orders.list
   };
 };
 

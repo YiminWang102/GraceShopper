@@ -1,6 +1,6 @@
 import {
-  RECEIVE_PRODUCTS,
-  RECEIVE_PRODUCT
+  RECEIVE_ORDERS,
+  RECEIVE_ORDER
 } from '../constants';
 
 const initialOrdersState = {
@@ -24,4 +24,5 @@ export default function (state = initialOrdersState, action) {
     default:
       return state;
   }
+  return newState;
 }

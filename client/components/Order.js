@@ -10,7 +10,7 @@ const fakeOrder = {
 
 export default function Product (props) {
 
-  const order = fakeOrder;
+  const order = props.order;
 
   return (
     <div className="order">
