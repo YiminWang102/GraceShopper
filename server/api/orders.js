@@ -75,46 +75,39 @@ router.post('/:orderId', (req, res, next) => {
     .catch(next);
 });
 
-router.put('/:orderId', (req, res, next) => {
-
-  // If product is being changed....
-  if (req.body.productId) {
-    OrderProduct.findOne({
-      where: {
-        orderId: req.order.id,
-        productId: req.body.productId
+// User route for changing quantity of a Product in their Order
+router.put('/cart/:orderId', (req, res, next) => {
+  OrderProduct.findOne({
+    where: {
+      orderId: req.order.id,
+      productId: req.body.productId
+    }
+  })
+    .then(foundOrderProduct => {
+      // If quantity is 0, user is effectively removing product from their order
+      let quantityPromise = (req.body.quantity > 0) ? foundOrderProduct.update(req.body.quantity) : foundOrderProduct.destroy();
+      return quantityPromise;
+   })
+    .then(quantityPromiseResult => {
+      // destroy() resolves to an integer
+      if (typeof quantityPromiseResult === 'number') {
+          res.status(204).send(`Deleted product ${req.body.productId} from order ${req.order.id}`);
+      }
+      else {
+          res.status(204).send(`Updated quantity of product ${req.body.productId}`);
       }
     })
-      .then(foundProductRow => {
-        // User trying to remove item from order...
-        if (req.body.quantity <= 0) {
-          foundProductRow.destroy()
-            .then(() => {
-              res.status(204).send(`Deleted product ${req.body.productId} from OrderProduct`);
-            })
-        }
-        // Else, update quantity of product in this order...
-        else {
-          foundProductRow.update(req.body.quantity)
-            .then(() => {
-              res.status(200).send(`Updated quantity of Product ${req.body.productId} in OrderProduct`); // TODO: Need to check if nothing was updated and update was unnecessary, in which case status should be 204.
-            })
-        }
-      })
-      .catch(next);
-  }
-  // If admin is changing status of this order...
-  else if (req.body.status !== req.order.status) {
-    req.order.update(req.body, {returning: true})
-      .then(result => {
-        res.json(result)
-      })
-      .catch(next)
-  }
-  // Nothing was done...
-  else {
-    res.sendStatus(304); //this block should be unnecessary?
-  }
+    .catch(next);
+});
+
+// Admin route for updating status of Order
+router.put('/update/:orderId', (req, res, next) => {
+  // ex: req.body => {status: 1}
+  req.order.update(req.body, {returning: true})
+    .then(updatedStatus => {
+      res.status(200).json(updatedStatus); 
+    })
+    .catch(next);
 });
 
 router.delete('/:orderId', (req, res, next) => {
