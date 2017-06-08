@@ -36,16 +36,30 @@ router.get('/:orderId', (req, res, next) => {
     }
   })
     .then(foundProducts => {
-      res.status(200).json({user: req.order.userId, products: foundProducts});
+      req.order.products = foundProducts;
+      res.json(order);
     })
+    .catch(next);
+});
+
+router.get('/user/:userId', (req, res, next) => {
+  Order.findAll({
+    where: {
+      userId: req.params.userId
+    }
+  })
+    .then( orders => {
+      res.json(orders);
+    })
+    .catch(next);
 });
 
 router.post('/', (req, res, next) => {
   Order.create(req.body)
     .then(createdOrder => {
-      res.status(200).json(createdOrder)
+      res.status(200).json(createdOrder);
     })
-    .catch(next)
+    .catch(next);
 });
 
 router.post('/:orderId', (req, res, next) => {
@@ -56,7 +70,7 @@ router.post('/:orderId', (req, res, next) => {
     orderId: req.order.id
   })
     .then(() => {
-      res.status(200).send(`Product ID: ${req.body.productId} added to order ${req.order.id}`)
+      res.status(200).send(`Product ID: ${req.body.productId} added to order ${req.order.id}`);
     })
     .catch(next);
 });
@@ -71,7 +85,7 @@ router.put('/:orderId', (req, res, next) => {
         productId: req.body.productId
       }
     })
-      .then(foundProductRow => { 
+      .then(foundProductRow => {
         // User trying to remove item from order...
         if (req.body.quantity <= 0) {
           foundProductRow.destroy()
