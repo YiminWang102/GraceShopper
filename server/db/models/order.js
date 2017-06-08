@@ -16,9 +16,12 @@ module.exports = db.define('order', {
     allowNull: false
   },
   status: {
-    type: Sequelize.STRING, 
+    type: Sequelize.STRING,
     defaultValue: 'CREATED',
     allowNull: false
+  },
+  totalPrice: {
+    type: Sequelize.INTEGER,
   }
 }, {
   instanceMethods: {
