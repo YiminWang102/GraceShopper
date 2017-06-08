@@ -37,7 +37,7 @@ router.get('/:orderId', (req, res, next) => {
   })
     .then(foundProducts => {
       req.order.products = foundProducts;
-      res.json(order);
+      res.json(req.order);
     })
     .catch(next);
 });
