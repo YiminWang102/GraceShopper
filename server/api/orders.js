@@ -36,8 +36,22 @@ router.get('/:orderId', (req, res, next) => {
     }
   })
     .then(foundProducts => {
-      res.status(200).json({user: req.order.userId, products: foundProducts});
+      req.order.products = foundProducts;
+      res.json(req.order);
     })
+    .catch(next);
+});
+
+router.get('/user/:userId', (req, res, next) => {
+  Order.findAll({
+    where: {
+      userId: req.params.userId
+    }
+  })
+    .then( orders => {
+      res.json(orders);
+    })
+    .catch(next);
 });
 
 router.post('/', (req, res, next) => {
@@ -45,7 +59,7 @@ router.post('/', (req, res, next) => {
     .then(createdOrder => {
       res.status(201).json(createdOrder)
     })
-    .catch(next)
+    .catch(next);
 });
 
 router.post('/:orderId', (req, res, next) => {

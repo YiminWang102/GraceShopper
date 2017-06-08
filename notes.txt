@@ -1,0 +1,14 @@
+Update Readme, since it says pretty nothing. Give specific instructions.
+
+Separate driving responsibilities. Even out number of commits per developer.
+
+Better ticket organization.
+
+Be careful about pushing to master.
+
+More detailed commit messages.
+
+Implement tests.
+
+Add user stories to frontend tickets.
+  -Structure: As a 'blank' I want to 'blank' by 'blank'
