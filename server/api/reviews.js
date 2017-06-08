@@ -39,8 +39,9 @@ router.post('/', (req, res, next) => {
 //TODO maybe reviews can hit this route to change their password (we'll see)
 router.put('/:reviewId', (req, res, next) => {
   req.review.update(req.body)
-    .then( () => {
-      res.sendStatus(200);
+    .then( affectedArr => {
+      if (!affectedArr[0]) res.sendStatus(204);
+      else res.sendStatus(200);
     })
     .catch(next);
 });
@@ -49,7 +50,7 @@ router.put('/:reviewId', (req, res, next) => {
 router.delete('/:reviewId', (req, res, next) => {
   req.review.destroy()
     .then( () => {
-      res.sendStatus(200);
+      res.sendStatus(204);
     })
     .catch(next);
 });

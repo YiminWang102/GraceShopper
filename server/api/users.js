@@ -41,8 +41,9 @@ router.post('/', (req, res, next) => {
 */
 router.put('/:userId', (req, res, next) => {
   req.user.update(req.body)
-    .then( () => {
-      res.sendStatus(200);
+    .then( affectedArr => {
+      if (!affectedArr[0]) res.sendStatus(204);
+      else res.sendStatus(200);
     })
     .catch(next);
 });
@@ -51,7 +52,7 @@ router.put('/:userId', (req, res, next) => {
 router.delete('/:userId', (req, res, next) => {
   req.user.destroy()
     .then( () => {
-      res.sendStatus(200);
+      res.sendStatus(204);
     })
     .catch(next);
 });

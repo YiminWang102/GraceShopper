@@ -43,7 +43,7 @@ router.get('/:orderId', (req, res, next) => {
 router.post('/', (req, res, next) => {
   Order.create(req.body)
     .then(createdOrder => {
-      res.status(200).json(createdOrder)
+      res.status(201).json(createdOrder)
     })
     .catch(next)
 });
@@ -56,7 +56,7 @@ router.post('/:orderId', (req, res, next) => {
     orderId: req.order.id
   })
     .then(() => {
-      res.status(200).send(`Product ID: ${req.body.productId} added to order ${req.order.id}`)
+      res.status(201).send(`Product ID: ${req.body.productId} added to order ${req.order.id}`)
     })
     .catch(next);
 });
@@ -71,19 +71,19 @@ router.put('/:orderId', (req, res, next) => {
         productId: req.body.productId
       }
     })
-      .then(foundProductRow => { 
+      .then(foundProductRow => {
         // User trying to remove item from order...
         if (req.body.quantity <= 0) {
           foundProductRow.destroy()
             .then(() => {
-              res.status(202).send(`Deleted product ${req.body.productId} from OrderProduct`);
+              res.status(204).send(`Deleted product ${req.body.productId} from OrderProduct`);
             })
         }
         // Else, update quantity of product in this order...
         else {
           foundProductRow.update(req.body.quantity)
             .then(() => {
-              res.status(200).send(`Updated quantity of Product ${req.body.productId} in OrderProduct`);
+              res.status(200).send(`Updated quantity of Product ${req.body.productId} in OrderProduct`); // TODO: Need to check if nothing was updated and update was unnecessary, in which case status should be 204.
             })
         }
       })
@@ -99,14 +99,14 @@ router.put('/:orderId', (req, res, next) => {
   }
   // Nothing was done...
   else {
-    res.sendStatus(304);
+    res.sendStatus(304); //this block should be unnecessary?
   }
 });
 
 router.delete('/:orderId', (req, res, next) => {
   req.order.destroy()
     .then(() => {
-      res.sendStatus(202)
+      res.sendStatus(204)
     })
     .catch(next)
 });
