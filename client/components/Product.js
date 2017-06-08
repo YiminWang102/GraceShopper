@@ -1,5 +1,10 @@
 import React from 'react';
 import ReviewsContainer from '../containers/ReviewsContainer';
+import RaisedButton from 'material-ui/RaisedButton';
+
+const style = {
+  margin: 12,
+};
 
 const fakeProduct = {
   title: 'spongebob meme',
@@ -13,7 +18,7 @@ const fakeProduct = {
 
 export default function Product (props) {
 
-  const product = fakeProduct;
+  const product = props.product;
 
   return (
     <div className="product">
@@ -21,6 +26,7 @@ export default function Product (props) {
         <h3>{ product.title }</h3>
         <img src={ product.imageUrl } className="img-thumbnail"/>
         <h4> {product.description} </h4>
+        <RaisedButton label="Add to Cart" style={style} />
         <ReviewsContainer />
       </div>
     </div>

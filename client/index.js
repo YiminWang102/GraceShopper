@@ -14,6 +14,7 @@ import App from './components/App';
 
 import ProductsContainer from './containers/ProductsContainer';
 import ProductContainer from './containers/ProductContainer';
+import OrdersContainer from './containers/OrdersContainer';
 
 import { receiveProducts, getProductById, loadAllProducts } from './action-creators/products';
 
@@ -43,13 +44,19 @@ const onAppEnter = () => {
     .catch(err => console.log(err));
 };
 
+const onProductEnter = nextRouterState => {
+  const productId = nextRouterState.params.productId;
+  store.dispatch(getProductById(productId));
+}
+
 ReactDOM.render(
   <Provider store={store}>
     <Router history={browserHistory}>
       <Route path="/" component={App} onEnter={onAppEnter}>
         <Route path="/products" component={ProductsContainer} />
-        <Route path="/products/1" component={ProductContainer} />
+        <Route path="/products/:productId" component={ProductContainer} onEnter={onProductEnter} />
 
+        <Route path="/tempOrders" component={OrdersContainer} />
         <IndexRedirect to="/products" />
       </Route>
       {/*<Route path="/" component={Main}>
