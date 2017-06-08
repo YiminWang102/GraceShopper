@@ -1,25 +1,17 @@
 import React from 'react';
+import {Link} from 'react-router';
 
-const dummyUsers = [
-        {name: "Andrew", email: 'andrew@andrew.com'},
-        {name: "Matt", email: 'matt@matt.com'},
-        {name: "David", email: 'david@david.com'},
-        {name: "Jason", email: 'jason@jason.com'},
-        {name: "Eli", email: 'eli@eli.com'},
-        {name: "Emily", email: 'emily@emily.com'},
-    ]
-
-const allUsers = () => {
+const allUsers = ({users}) => {
   return (
     <div>
     {
-      dummyUsers &&
-      dummyUsers.map(user => {
+      users &&
+      users.map(user => {
         return (
-          <div key = {user.id}>
+          <Link key = {user.id} to = {`/users/${user.id}`}>
             <h4>{user.name}</h4>
             <h4>{user.email}</h4>
-          </div>
+          </Link>
         )
       })
     }

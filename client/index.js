@@ -14,10 +14,13 @@ import App from './components/App';
 
 import ProductsContainer from './containers/ProductsContainer';
 import ProductContainer from './containers/ProductContainer';
-import UsersContainer from './containers/UsersContainer'
+import UsersContainer from './containers/UsersContainer';
+import UserContainer from './containers/UserContainer';
 
 import { receiveProducts, getProductById, loadAllProducts } from './action-creators/products';
 
+import {getAllUsers} from './reducer/users'
+import {setUser} from './reducer/user'
 
 const whoAmI = store.dispatch(me());
 
@@ -44,13 +47,23 @@ const onAppEnter = () => {
     .catch(err => console.log(err));
 };
 
+const onUsersEnter = () => {
+  store.dispatch(getAllUsers())
+}
+
+const onUserEnter = (nextRouterState) => {
+  const userId = nextRouterState.params.userId;
+  store.dispatch(setUser(userId));
+}
+
 ReactDOM.render(
   <Provider store={store}>
     <Router history={browserHistory}>
       <Route path="/" component={App} onEnter={onAppEnter}>
         <Route path="/products" component={ProductsContainer} />
         <Route path="/products/1" component={ProductContainer} />
-        <Route path ="/users" component = {UsersContainer} />
+        <Route path ="/users" component = {UsersContainer} onEnter = {onUsersEnter}/>
+        <Route path = "/users/:userId" component = {UserContainer} onEnter = {onUserEnter}/>
         <IndexRedirect to="/products" />
       </Route>
       {/*<Route path="/" component={Main}>

@@ -1,5 +1,7 @@
 import axios from 'axios';
 import { browserHistory } from 'react-router';
+import {SET_CURRENT_USER} from '../constants'
+import {setCurrentUser} from '../action-creators/user'
 
 const GET_USER = 'GET_USER';
 const REMOVE_USER = 'REMOVE_USER';
@@ -8,6 +10,12 @@ const defaultUser = {};
 
 const getUser = user => ({ type: GET_USER, user });
 const removeUser = () => ({ type: REMOVE_USER });
+
+export const setUser = (id) => dispatch => {
+  axios.get(`/api/users/${id}`)
+  .then(res => dispatch(setCurrentUser(res.data)))
+  .catch(error => console.error(error))
+}
 
 export const me = () =>
   dispatch =>
@@ -40,6 +48,8 @@ export default function (state = defaultUser, action) {
       return action.user;
     case REMOVE_USER:
       return defaultUser;
+    case SET_CURRENT_USER:
+      return action.currentUser;
     default:
       return state;
   }

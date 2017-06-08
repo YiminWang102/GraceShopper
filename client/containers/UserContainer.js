@@ -1,9 +1,10 @@
-import {connect} from 'react-redux'
+import {connect} from 'react-redux';
+import User from '../components/User';
 
 const mapStateToProps = (state) => {
   return {
-    currentUser: state.currentUser
+    currentUser: state.user
   }
 }
 
-connect(mapStateToProps)(User)
+export default connect(mapStateToProps)(User)
