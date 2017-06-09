@@ -18,9 +18,10 @@ import UsersContainer from './containers/UsersContainer';
 import UserContainer from './containers/UserContainer';
 import OrdersContainer from './containers/OrdersContainer';
 import OrderContainer from './containers/OrderContainer';
+import CartContainer from './containers/CartContainer';
 
 import { receiveProducts, getProductById, loadAllProducts } from './action-creators/products';
-import { getOrdersByUserId, getOrderById } from './action-creators/orders';
+import { getOrdersByUserId, getOrderById, getOrderProductsByOrderId } from './action-creators/orders';
 import {getAllUsers} from './reducer/users'
 import {setUser} from './reducer/user'
 
@@ -71,6 +72,11 @@ const onOrderEnter = nextRouterState => {
   store.dispatch(getOrderById(orderId));
 }
 
+const onCartEnter = nextRouterState => {
+  const orderId = nextRouterState.params.orderId;
+  store.dispatch(getOrderProductsByOrderId(orderId));
+}
+
 ReactDOM.render(
   <Provider store={store}>
     <Router history={browserHistory}>
@@ -81,6 +87,7 @@ ReactDOM.render(
         <Route path="/products/:productId" component={ProductContainer} onEnter={onProductEnter} />
         <Route path="orders/user/:userId" component={OrdersContainer} onEnter={onOrdersEnter}/>
         <Route path="orders/order/:orderId" component={OrderContainer} onEnter={onOrderEnter} />
+        <Route path="/cart/:orderId" component={CartContainer} onEnter={onCartEnter} />
         <IndexRedirect to="/products" />
       </Route>
       {/*<Route path="/" component={Main}>
