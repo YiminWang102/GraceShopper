@@ -31,8 +31,19 @@ const createApp = () => app
     secret: process.env.SESSION_SECRET || 'my best friend is Cody',
     store,
     resave: false,
-    saveUninitialized: false
+    saveUninitialized: false,
+    genid: req => {
+      return 'hi';
+    },
+    cookie: {
+      domain: 'myDomain',
+      name : 'Danwashere'
+    }
   }))
+  .use((req, res, next) => {
+    console.log('*****', req.session)
+    next()
+  })
   .use(passport.initialize())
   .use(passport.session())
   .use('/auth', require('./auth'))

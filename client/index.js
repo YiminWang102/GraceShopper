@@ -19,6 +19,8 @@ import UserContainer from './containers/UserContainer';
 import OrdersContainer from './containers/OrdersContainer';
 import OrderContainer from './containers/OrderContainer';
 
+import SignupForm from './components/SignupForm';
+
 import { receiveProducts, getProductById, loadAllProducts } from './action-creators/products';
 import { getOrdersByUserId, getOrderById } from './action-creators/orders';
 import {getAllUsers} from './reducer/users'
@@ -81,6 +83,14 @@ ReactDOM.render(
         <Route path="/products/:productId" component={ProductContainer} onEnter={onProductEnter} />
         <Route path="orders/user/:userId" component={OrdersContainer} onEnter={onOrdersEnter}/>
         <Route path="orders/order/:orderId" component={OrderContainer} onEnter={onOrderEnter} />
+        <Route path="signup" component={Main}>
+          <IndexRoute component={Login} />
+          <Route path="login" component={Login} />
+          <Route path="signup" component={Signup} />
+          <Route onEnter={requireLogin}>
+            <Route path="home" component={UserHome} />
+          </Route>
+        </Route>
         <IndexRedirect to="/products" />
       </Route>
       {/*<Route path="/" component={Main}>
