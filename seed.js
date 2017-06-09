@@ -24,15 +24,13 @@ const data = {
         {name: "Eli", email: 'eli@eli.com'},
         {name: "Emily", email: 'emily@emily.com'},
     ],
-    reviews: [
-        // {rating: 3, text: 'Gave me too much euphoria.', userId: 1, productId: 5},
-        // {rating: 1, text: 'dont buy this product, UPS lost my package!!!1', userId: 1, productId: 2},
-        // {rating: 5, text: 'Saved my marriage.', userId: 6, productId: 3},
-        // {rating: 1, text: 'dont buy unless you want your wife to leave you', userId: 5, productId: 4},
-        // {rating: 1, text: 'not wat i expected.. i want my money back', userId: 1, productId: 2}
-        {rating: 1, text: 'not wat i expected.. i want my money back', userId: 1, productId: 2}
-
-    ],
+    // reviews: [
+    //     {rating: 3, text: 'Gave me too much euphoria.', userId: 1, productId: 5},
+    //     {rating: 1, text: 'dont buy this product, UPS lost my package!!!1', userId: 1, productId: 2},
+    //     {rating: 5, text: 'Saved my marriage.', userId: 6, productId: 3},
+    //     {rating: 1, text: 'dont buy unless you want your wife to leave you', userId: 5, productId: 4},
+    //     {rating: 1, text: 'not wat i expected.. i want my money back', userId: 1, productId: 2}
+    // ],
     orders: [
         {shippingInfo: ''}
     ]
@@ -47,10 +45,10 @@ db.sync({force: true})
     const creatingProducts = data.products.map(function (products) {
         return Product.create(products);
     });
-    const creatingReviews = data.reviews.map(function (reviews) {
-        return Review.create(reviews);
-    })
-    return Promise.all([creatingUsers, creatingProducts, creatingReviews]);
+    // const creatingReviews = data.reviews.map(function (reviews) {
+    //     return Review.create(reviews);
+    // })
+    return Promise.all([creatingUsers, creatingProducts/*, creatingReviews*/]);
     })
     .then(function () {
       console.log("Finished inserting data (press ctrl-c to exit)");

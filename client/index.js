@@ -20,6 +20,7 @@ import OrdersContainer from './containers/OrdersContainer';
 import OrderContainer from './containers/OrderContainer';
 
 import { receiveProducts, getProductById, loadAllProducts } from './action-creators/products';
+import { getOrdersByUserId, getOrderById } from './action-creators/orders';
 import {getAllUsers} from './reducer/users'
 import {setUser} from './reducer/user'
 
@@ -37,7 +38,6 @@ const requireLogin = (nextRouterState, replace, next) =>
 const onAppEnter = () => {
   console.log('hit onAppEnter')
   const gettingProducts = axios.get('/api/products');
-
 
   return Promise
     .all([gettingProducts])
@@ -61,6 +61,16 @@ const onProductEnter = nextRouterState => {
   store.dispatch(getProductById(productId));
 }
 
+const onOrdersEnter = nextRouterState => {
+  const userId = nextRouterState.params.userId;
+  store.dispatch(getOrdersByUserId(userId));
+}
+
+const onOrderEnter = nextRouterState => {
+  const orderId = nextRouterState.params.orderId;
+  store.dispatch(getOrderById(orderId));
+}
+
 ReactDOM.render(
   <Provider store={store}>
     <Router history={browserHistory}>
@@ -69,8 +79,8 @@ ReactDOM.render(
         <Route path ="/users" component = {UsersContainer} onEnter = {onUsersEnter}/>
         <Route path = "/users/:userId" component = {UserContainer} onEnter = {onUserEnter}/>
         <Route path="/products/:productId" component={ProductContainer} onEnter={onProductEnter} />
-        <Route path="/tempOrders" component={OrdersContainer} />
-        <Route path="/tempOrders/tempOrder" component={OrderContainer} />
+        <Route path="orders/user/:userId" component={OrdersContainer} onEnter={onOrdersEnter}/>
+        <Route path="orders/order/:orderId" component={OrderContainer} onEnter={onOrderEnter} />
         <IndexRedirect to="/products" />
       </Route>
       {/*<Route path="/" component={Main}>
