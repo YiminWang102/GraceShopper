@@ -86,7 +86,7 @@ ReactDOM.render(
           <Route path="login" component={Login} />
           <Route path="signup" component={Signup} />
           <Route onEnter={requireLogin}>
-            <Route path="home" component={UserHome} />
+            <Route path="/" component={UserHome} />
           </Route>
         </Route>
         <IndexRedirect to="/products" />
