@@ -26,7 +26,7 @@ module.exports = db.define('user', {
   },
   name: {
     type: Sequelize.STRING,
-    //allowNull: false
+    allowNull: false
   },
   isAdmin: {
     type: Sequelize.BOOLEAN,

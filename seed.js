@@ -17,12 +17,12 @@ const data = {
         {title: 'Meme9', description: 'Dank', inventory: 9001, price: 1337, category: 'dank,meme,forever'}
     ],
     users: [
-        {name: "Andrew", email: 'andrew@andrew.com'},
-        {name: "Matt", email: 'matt@matt.com'},
-        {name: "David", email: 'david@david.com'},
-        {name: "Jason", email: 'jason@jason.com'},
-        {name: "Eli", email: 'eli@eli.com'},
-        {name: "Emily", email: 'emily@emily.com'},
+        {name: "Andrew", email: 'andrew@andrew.com', password: 'andrew'},
+        {name: "Matt", email: 'matt@matt.com', password: 'matt'},
+        {name: "David", email: 'david@david.com', password: 'david'},
+        {name: "Jason", email: 'jason@jason.com', password: 'jason'},
+        {name: "Eli", email: 'eli@eli.com', password: 'eli'},
+        {name: "Emily", email: 'emily@emily.com', password: 'emily'},
     ],
     // reviews: [
     //     {rating: 3, text: 'Gave me too much euphoria.', userId: 1, productId: 5},
