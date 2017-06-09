@@ -3,6 +3,9 @@ const db = require('./server/db');
 const Product = require('./server/db/models/product');
 const User = require('./server/db/models/user');
 const Review = require('./server/db/models/review');
+const Order = require('./server/db/models/order');
+const OrderProduct = require('./server/db/models/orderproduct');
+
 
 const data = {
     products: [
@@ -32,7 +35,10 @@ const data = {
     //     {rating: 1, text: 'not wat i expected.. i want my money back', userId: 1, productId: 2}
     // ],
     orders: [
-        {shippingInfo: ''}
+        {shippingInfo: '555 HerokuLane, NewCentauri, NC', paymentInfo: '1234 5555 6543 2121 10/19 435', status: 1, totalPrice: 0}
+    ],
+    orderproducts: [
+        {quantity: 2, price: 9002, orderId: 1, productId: 1}
     ]
 };
 
@@ -45,10 +51,16 @@ db.sync({force: true})
     const creatingProducts = data.products.map(function (products) {
         return Product.create(products);
     });
+    const creatingOrders = data.orders.map(function (orders) {
+        return Order.create(orders);
+    });
+    const creatingOrderProducts = data.orderproducts.map(function (orderProducts) {
+        return OrderProduct.create(orderProducts);
+    });
     // const creatingReviews = data.reviews.map(function (reviews) {
     //     return Review.create(reviews);
     // })
-    return Promise.all([creatingUsers, creatingProducts/*, creatingReviews*/]);
+    return Promise.all([creatingUsers, creatingProducts, creatingOrders, creatingOrderProducts/*, creatingReviews*/]);
     })
     .then(function () {
       console.log("Finished inserting data (press ctrl-c to exit)");

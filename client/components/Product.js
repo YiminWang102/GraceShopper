@@ -26,7 +26,7 @@ export default function Product (props) {
         <h3>{ product.title }</h3>
         <img src={ product.imageUrl } className="img-thumbnail"/>
         <h4> {product.description} </h4>
-        <RaisedButton label="Add to Cart" style={style} />
+        <RaisedButton label="Add to Cart" style={style} onClick={props.handleClick} />
         <ReviewsContainer />
       </div>
     </div>
