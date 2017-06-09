@@ -33,6 +33,10 @@ const createApp = () => app
     resave: false,
     saveUninitialized: false
   }))
+  .use((req, res, next) => {
+    console.log('*****', req.session)
+    next()
+  })
   .use(passport.initialize())
   .use(passport.session())
   .use('/auth', require('./auth'))
