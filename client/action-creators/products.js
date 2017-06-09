@@ -1,5 +1,5 @@
 import { RECEIVE_PRODUCTS, RECEIVE_PRODUCT } from '../constants';
-import { browserHistory,} from 'react-router';
+import { browserHistory} from 'react-router';
 import axios from 'axios';
 
 export const receiveProducts = products => {

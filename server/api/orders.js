@@ -32,7 +32,11 @@ router.get('/', (req, res, next) => {
 });
 
 router.get('/:orderId', (req, res, next) => {
-  res.json(req.order);
+  Order.findById(req.order.id, {include: [ { model: Product, through: OrderProduct }]})
+  .then(order => {
+    res.json(order);
+  })
+  .catch(next);
 });
 
 router.get('/user/:userId', (req, res, next) => {
