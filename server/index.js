@@ -31,14 +31,7 @@ const createApp = () => app
     secret: process.env.SESSION_SECRET || 'my best friend is Cody',
     store,
     resave: false,
-    saveUninitialized: false,
-    genid: req => {
-      return 'hi';
-    },
-    cookie: {
-      domain: 'myDomain',
-      name : 'Danwashere'
-    }
+    saveUninitialized: false
   }))
   .use((req, res, next) => {
     console.log('*****', req.session)
