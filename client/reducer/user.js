@@ -28,7 +28,7 @@ export const auth = (email, password, method) =>
     axios.post(`/auth/${method}`, { email, password })
       .then(res => {
         dispatch(getUser(res.data));
-        browserHistory.push('/home');
+        browserHistory.push('/');
       })
       .catch(error =>
         dispatch(getUser({ error })));
@@ -38,7 +38,7 @@ export const logout = () =>
     axios.post('/auth/logout')
       .then(res => {
         dispatch(removeUser());
-        browserHistory.push('/login');
+        browserHistory.push('/signup/login');
       })
       .catch(err => console.log(err));
 

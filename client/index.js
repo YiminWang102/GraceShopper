@@ -88,6 +88,14 @@ ReactDOM.render(
         <Route path="orders/user/:userId" component={OrdersContainer} onEnter={onOrdersEnter}/>
         <Route path="orders/order/:orderId" component={OrderContainer} onEnter={onOrderEnter} />
         <Route path="/cart/:orderId" component={CartContainer} onEnter={onCartEnter} />
+        <Route path="signup" component={Main}>
+          <IndexRoute component={Login} />
+          <Route path="login" component={Login} />
+          <Route path="signup" component={Signup} />
+          <Route onEnter={requireLogin}>
+            <Route path="home" component={UserHome} />
+          </Route>
+        </Route>
         <IndexRedirect to="/products" />
       </Route>
       {/*<Route path="/" component={Main}>

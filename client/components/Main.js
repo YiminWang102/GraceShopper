@@ -15,12 +15,12 @@ const Main = props => {
       <h1>BOILERMAKER</h1>
       { loggedIn ?
           <nav>
-            <Link to="/home">Home</Link>
+            <Link to="/">Home</Link>
             <a href="#" onClick={handleClick}>Logout</a>
           </nav> :
           <nav>
-            <Link to="/login">Login</Link>
-            <Link to="/signup">Sign Up</Link>
+            <Link to="/signup/login">Login</Link>
+            <Link to="/signup/signup">Sign Up</Link>
           </nav>
       }
       <hr />
