@@ -5,6 +5,5 @@ import {AppBar, DropDownMenu, MenuItem} from 'material-ui'
 export default function Navbar (props) {
 
   return (
-    <AppBar title="All Memes" showMenuIconButton="false">
-    </AppBar>
+    <AppBar title="All Memes" />
   )}
