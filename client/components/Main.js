@@ -15,7 +15,7 @@ const Main = props => {
       <h1>BOILERMAKER</h1>
       { loggedIn ?
           <nav>
-            <Link to="/home">Home</Link>
+            <Link to="/">Home</Link>
             <a href="#" onClick={handleClick}>Logout</a>
           </nav> :
           <nav>
