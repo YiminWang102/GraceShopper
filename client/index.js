@@ -19,8 +19,6 @@ import UserContainer from './containers/UserContainer';
 import OrdersContainer from './containers/OrdersContainer';
 import OrderContainer from './containers/OrderContainer';
 
-import SignupForm from './components/SignupForm';
-
 import { receiveProducts, getProductById, loadAllProducts } from './action-creators/products';
 import { getOrdersByUserId, getOrderById } from './action-creators/orders';
 import {getAllUsers} from './reducer/users'
