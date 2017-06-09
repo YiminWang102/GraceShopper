@@ -1,6 +1,7 @@
 import {
   RECEIVE_ORDERS,
-  RECEIVE_ORDER
+  RECEIVE_ORDER,
+  RECEIVE_ORDER_PRODUCTS
 } from '../constants';
 
 const initialOrdersState = {
@@ -11,7 +12,7 @@ const initialOrdersState = {
 export default function (state = initialOrdersState, action) {
   const newState = Object.assign({}, state);
 
-  switch(action.type) {
+  switch (action.type) {
 
     case RECEIVE_ORDERS:
       newState.list = action.orders;
@@ -19,6 +20,10 @@ export default function (state = initialOrdersState, action) {
 
     case RECEIVE_ORDER:
       newState.selected = action.order;
+      break;
+
+    case RECEIVE_ORDER_PRODUCTS:
+      newState.selected.orderProducts = action.orderProducts;
       break;
 
     default:
