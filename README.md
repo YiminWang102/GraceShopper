@@ -1,17 +1,15 @@
 # MemeShopper
 
-*JUST DO IT*
+Welcome to Memeshopper, the **premiere** destination for all your meme needs.
+Browse through our extensive but, highly selective catalogue of the freshest, **dankest** memes.
+Enjoy!
 
-Buy Memes and Dreams
+## How to use Memeshopper
 
-## FAQ
+## Running tests
 
-* Why?
-  * Why not?
+## Built With
 
-* Blah blah blah
-  * blah blah blah
+## Authors
 
 ## Visit us!
-
-Link to website goes here
