@@ -1,7 +1,8 @@
 import {
   RECEIVE_ORDERS,
   RECEIVE_ORDER,
-  RECEIVE_ORDER_PRODUCTS
+  RECEIVE_ORDER_PRODUCTS,
+  CREATE_NEW_ORDER
 } from '../constants';
 
 const initialOrdersState = {
@@ -24,6 +25,10 @@ export default function (state = initialOrdersState, action) {
 
     case RECEIVE_ORDER_PRODUCTS:
       newState.selected.orderProducts = action.orderProducts;
+      break;
+
+    case CREATE_NEW_ORDER:
+      newState.selected.userId = action.userId;
       break;
 
     default:
