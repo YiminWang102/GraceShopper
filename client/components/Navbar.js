@@ -1,9 +1,19 @@
 import React from 'react';
 import { Link } from 'react-router';
-import {AppBar, DropDownMenu, MenuItem} from 'material-ui'
+import {AppBar, ToolbarGroup, FlatButton} from 'material-ui';
 
-export default function Navbar (props) {
+const MyNavLinks = () => (
+  <ToolbarGroup>
+    <FlatButton label="Log In" containerElement={<Link to="/signup"/>}/>
+  </ToolbarGroup>
+);
 
-  return (
-    <AppBar title="All Memes" />
-  )}
+const MyAppbar = () => (
+    <AppBar
+      iconElementLeft={<FlatButton label="home" containerElement={<Link to="/"/>} />}
+      title="MemeShopper"
+      iconElementRight={<MyNavLinks />}
+    />
+);
+
+export default MyAppbar;

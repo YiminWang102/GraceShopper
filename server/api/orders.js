@@ -102,7 +102,7 @@ router.put('/update/:orderId', (req, res, next) => {
   // ex: req.body => {status: 1}
   req.order.update(req.body, {returning: true})
     .then(updatedStatus => {
-      res.status(200).json(updatedStatus); 
+      res.status(200).json(updatedStatus);
     })
     .catch(next);
 });
