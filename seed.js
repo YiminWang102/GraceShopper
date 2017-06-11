@@ -27,44 +27,56 @@ const data = {
         {name: "Eli", email: 'eli@eli.com', password: 'eli'},
         {name: "Emily", email: 'emily@emily.com', password: 'emily'},
     ],
-    // reviews: [
-    //     {rating: 3, text: 'Gave me too much euphoria.', userId: 1, productId: 5},
-    //     {rating: 1, text: 'dont buy this product, UPS lost my package!!!1', userId: 1, productId: 2},
-    //     {rating: 5, text: 'Saved my marriage.', userId: 6, productId: 3},
-    //     {rating: 1, text: 'dont buy unless you want your wife to leave you', userId: 5, productId: 4},
-    //     {rating: 1, text: 'not wat i expected.. i want my money back', userId: 1, productId: 2}
-    // ],
+    reviews: [
+        {rating: 3, text: 'Gave me too much euphoria.', userId: 1, productId: 5},
+        {rating: 1, text: 'dont buy this product, UPS lost my package!!!1', userId: 1, productId: 2},
+        {rating: 5, text: 'Saved my marriage.', userId: 6, productId: 3},
+        {rating: 1, text: 'dont buy unless you want your wife to leave you', userId: 5, productId: 4},
+        {rating: 1, text: 'not wat i expected.. i want my money back', userId: 1, productId: 2}
+    ],
     orders: [
-        {shippingInfo: '555 HerokuLane, NewCentauri, NC', paymentInfo: '1234 5555 6543 2121 10/19 435', status: 1, totalPrice: 0}
+        {shippingInfo: '555 HerokuLane, NewCentauri, NC', paymentInfo: '1234 5555 6543 2121 10/19 435', status: 1, totalPrice: 0, userId: 1},
+        {shippingInfo: '', paymentInfo: '', status: 1, totalPrice: 0, userId: 1},
+        {shippingInfo: '', paymentInfo: '', status: 2, totalPrice: 0, userId: 3},
+        {shippingInfo: '', paymentInfo: '', status: 1, totalPrice: 0, userId: 2},
+        {shippingInfo: '', paymentInfo: '', status: 1, totalPrice: 0, userId: 2},
+        {shippingInfo: '', paymentInfo: '', status: 1, totalPrice: 0, userId: 3},
+
     ],
     orderproducts: [
-        {quantity: 2, price: 9002, orderId: 1, productId: 1}
+        {quantity: 2, orderId: 1, productId: 1},
+        {quantity: 4, orderId: 1, productId: 2},
+        {quantity: 5, orderId: 1, productId: 3},
+        {quantity: 5, orderId: 2, productId: 1},
+        {quantity: 5, orderId: 2, productId: 2},
+        {quantity: 2, orderId: 3, productId: 4},
     ]
 };
 
 db.sync({force: true})
-.then(function () {
-    console.log("Dropped old data, now inserting data");
-    const creatingUsers = data.users.map(function (users) {
-        return User.create(users);
-    });
-    const creatingProducts = data.products.map(function (products) {
-        return Product.create(products);
-    });
-    const creatingOrders = data.orders.map(function (orders) {
+.then( () => {
+  console.log("Dropped old data, now inserting data");
+  const creatingUsers = Promise.all(data.users.map(function (users) {
+      return User.create(users);
+  }));
+  const creatingProducts = Promise.all(data.products.map(function (products) {
+      return Product.create(products);
+  }));
+  return Promise.all([creatingUsers, creatingProducts])
+  .then(() => Promise.all(data.orders.map(function (orders) {
         return Order.create(orders);
-    });
-    const creatingOrderProducts = data.orderproducts.map(function (orderProducts) {
-        return OrderProduct.create(orderProducts);
-    });
-    // const creatingReviews = data.reviews.map(function (reviews) {
-    //     return Review.create(reviews);
-    // })
-    return Promise.all([creatingUsers, creatingProducts, creatingOrders, creatingOrderProducts/*, creatingReviews*/]);
-    })
-    .then(function () {
-      console.log("Finished inserting data (press ctrl-c to exit)");
-    })
-    .catch(function (err) {
-      console.error('There was totally a problem', err, err.stack);
-})
+  })))
+  .then( () => Promise.all(data.orderproducts.map(function (orderProducts) {
+      return OrderProduct.create(orderProducts);
+  })))
+  .then( () => Promise.all(data.reviews.map(function (reviews) {
+      return Review.create(reviews);
+  })))
+
+  .then( () => {
+    console.log("Finished inserting data (press ctrl-c to exit)");
+  })
+  .catch( err => {
+    console.error('There was totally a problem', err, err.stack);
+  });
+});
