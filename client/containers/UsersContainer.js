@@ -1,11 +1,22 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import Users from '../components/Users'
+import Users from '../components/Users';
+import {deleteSelectedUser} from '../reducer/users.js';
 
 const mapStateToProps = function(state) {
   return {
-    users: state.users
+    users: state.users,
+    currentUser: state.user
   }
 }
 
-export default connect(mapStateToProps)(Users)
+const mapDispatchToProps = (dispatch) => {
+  return {
+    deleteUser: (event, id) => {
+      event.preventDefault();
+      dispatch(deleteSelectedUser(id));
+    }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Users)
