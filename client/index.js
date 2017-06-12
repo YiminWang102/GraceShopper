@@ -24,6 +24,7 @@ import { receiveProducts, getProductById, loadAllProducts } from './action-creat
 import { getOrdersByUserId, getOrderById, getOrderProductsByOrderId } from './action-creators/orders';
 import {getAllUsers} from './reducer/users'
 import {setUser} from './reducer/user'
+import {setUserToView} from './action-creators/viewedUser';
 
 const whoAmI = store.dispatch(me());
 
@@ -54,7 +55,7 @@ const onUsersEnter = () => {
 }
 const onUserEnter = (nextRouterState) => {
   const userId = nextRouterState.params.userId;
-  store.dispatch(setUser(userId));
+  store.dispatch(setUserToView(userId));
 }
 
 const onProductEnter = nextRouterState => {
@@ -82,8 +83,8 @@ ReactDOM.render(
     <Router history={browserHistory}>
       <Route path="/" component={App} onEnter={onAppEnter}>
         <Route path="/products" component={ProductsContainer} />
-        <Route path ="/users" component = {UsersContainer} onEnter = {onUsersEnter}/>
-        {/*<Route path = "/users/:userId" component = {UserContainer} onEnter = {onUserEnter} need to refactor onUserEnter so that it doesn't use the state as the logged in user/>*/}
+        <Route path ="/users" component = {UsersContainer} onEnter = {onUsersEnter} />
+        <Route path = "/users/:userId" component = {UserContainer} onEnter = {onUserEnter} />
         <Route path="/products/:productId" component={ProductContainer} onEnter={onProductEnter} />
         <Route path="orders/user/:userId" component={OrdersContainer} onEnter={onOrdersEnter} />
         <Route path="orders/order/:orderId" component={OrderContainer} onEnter={onOrderEnter} />
@@ -98,14 +99,6 @@ ReactDOM.render(
         </Route>
         <IndexRedirect to="/products" />
       </Route>
-      {/*<Route path="/" component={Main}>
-        <IndexRoute component={Login} />
-        <Route path="login" component={Login} />
-        <Route path="signup" component={Signup} />
-        <Route onEnter={requireLogin}>
-          <Route path="home" component={UserHome} />
-        </Route>
-      </Route>*/}
     </Router>
   </Provider>,
   document.getElementById('app')

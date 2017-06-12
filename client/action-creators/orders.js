@@ -79,6 +79,11 @@ export const getOrderById = orderId => dispatch => {
     .catch(err => {console.error(err);});
 };
 
+
+/*
+- Create new Order in table
+- Set current user's cartId to id of newly created Order
+*/
 export const placeOrder = orderId => dispatch => {
   axios.put(`/api/orders/update/${orderId}`, {status: 2})
     .then( res => res.data )

@@ -8,7 +8,7 @@
     "start": "node server",
     "start-server": "nodemon server",
     "build-client": "webpack -w",
-    "start-dev": "NODE_ENV='development' nodemon server",
+    "start-dev": "export NODE_ENV=development; nodemon server",
     "build-all-dev": "webpack -w & NODE_ENV='development' nodemon server",
     "test": "DATABASE_URL='postgres://localhost:5432/memeshopper' mocha ./Tests/Models/*.spec.js --compilers js:babel-register"
   },

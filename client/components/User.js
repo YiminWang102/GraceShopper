@@ -1,10 +1,10 @@
 import React from 'react'
 
-const User = ({currentUser}) => {
+const User = ({viewedUser}) => {
   return (
     <div>
-      <h4>{currentUser.name}</h4>
-      <h4>{currentUser.email}</h4>
+      <h4>{viewedUser && viewedUser.name}</h4>
+      <h4>{viewedUser && viewedUser.email}</h4>
     </div>
   )
 }

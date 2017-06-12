@@ -25,26 +25,6 @@ module.exports = router
           else {
             req.login(user, err => err ? next(err) : res.json(user));
           }
-        //   Order.findOne({
-        //     where: {
-        //       userId: user.id,
-        //       status: 1
-        //     }
-        //   })
-        //     .then(order => {
-        //       if (!order) {
-        //         return Order.create({userId: user.id})
-        //       }
-        //       else {
-        //         return order;
-        //       }
-        //     })
-        //     .then(order => {
-
-        //       req.login(user, err => err ? next(err) : res.json(user));
-        //     })
-        //     .catch(next);
-        // }
       }})
       .catch(next);
   })

@@ -1,13 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router';
 
-const fakeOrder = {
-  id: 1,
-  totalPrice: 500,
-  createdAt: Date.now(),
-  status: 'CREATED',
-};
-
 export default function Product (props) {
 
   const order = props.order;
