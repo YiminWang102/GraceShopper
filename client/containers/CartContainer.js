@@ -10,7 +10,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    dispatchPlaceOrder: event => {
+    onClick: event => {
       dispatch(placeOrder(event.target.button.value))
       alert("Your order has been placed!")
     }
