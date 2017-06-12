@@ -1,6 +1,4 @@
 import {SET_VIEWED_USER} from '../constants';
-
-import { browserHistory } from 'react-router';
 import axios from 'axios';
 
 export const setViewedUser = (user) => ({type: SET_VIEWED_USER, viewedUser: user});
