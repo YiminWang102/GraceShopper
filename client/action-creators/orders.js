@@ -1,4 +1,4 @@
-import { RECEIVE_ORDERS, RECEIVE_ORDER, RECEIVE_ORDER_PRODUCTS, CREATE_NEW_ORDER, SET_CART} from '../constants';
+import { RECEIVE_ORDERS, RECEIVE_ORDER, RECEIVE_ORDER_PRODUCTS, CREATE_NEW_ORDER, SET_CART} from '../reducer/constants';
 import axios from 'axios';
 
 export const receiveOrders = orders => {

@@ -13,10 +13,10 @@ const MyNavLinks = (props) => (
          { props.isUserAdmin ? ( <FlatButton label="View Users" containerElement={<Link to="/users" />} /> ) : '' }
          <FlatButton label="Log Out" containerElement={<Link to="/signup" />} />
        </div>
-      ) 
-      : 
-      ( 
-       <FlatButton label="Log In" containerElement={<Link to="/signup" />} /> 
+      )
+      :
+      (
+       <FlatButton label="Log In" containerElement={<Link to="/signup" />} />
       )
     }
   </ToolbarGroup>
@@ -28,10 +28,11 @@ MyNavLinks.propTypes = {
 };
 
 const MyAppbar = (props) => (
-    <AppBar 
-      iconElementLeft={<FlatButton label="home" containerElement={<Link to="/"/>} />}
-      title="MemeShopper" 
-      iconElementRight={ <MyNavLinks loggedIn={props.loggedIn} isUserAdmin={props.isUserAdmin} cartId={props.cartId} /> } />
+    <AppBar
+      iconElementLeft={<FlatButton label="home" containerElement={<Link to="/" />} />}
+      title="MemeShopper"
+      iconElementRight={ <MyNavLinks loggedIn={props.loggedIn} isUserAdmin={props.isUserAdmin} cartId={props.cartId} /> }
+    />
 );
 
 export default MyAppbar;
