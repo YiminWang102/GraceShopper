@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { browserHistory } from 'react-router';
-import {DELETE_USER} from '../constants'
+import {DELETE_USER} from './constants'
 
 
 //CONSTANTS

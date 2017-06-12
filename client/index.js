@@ -26,7 +26,6 @@ import {getAllUsers} from './reducer/users'
 import {setUser} from './reducer/user'
 import {setUserToView} from './action-creators/viewedUser';
 import { getReviewsByProductId } from './action-creators/reviews';
-import { setUser } from './reducer/user'
 
 const whoAmI = store.dispatch(me());
 

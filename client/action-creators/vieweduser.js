@@ -1,4 +1,4 @@
-import {SET_VIEWED_USER} from '../constants';
+import {SET_VIEWED_USER} from '../reducer/constants';
 import axios from 'axios';
 
 export const setViewedUser = (user) => ({type: SET_VIEWED_USER, viewedUser: user});

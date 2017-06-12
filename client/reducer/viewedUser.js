@@ -1,4 +1,4 @@
-import {SET_VIEWED_USER} from '../constants';
+import {SET_VIEWED_USER} from './constants';
 
 const defaultViewedUser = {};
 
