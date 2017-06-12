@@ -35,6 +35,9 @@ module.exports = db.define('user', {
   resetPassword: {
     type: Sequelize.BOOLEAN,
     defaultValue: false
+  },
+  cartId: {
+    type: Sequelize.INTEGER
   }
 }, {
   instanceMethods: {
