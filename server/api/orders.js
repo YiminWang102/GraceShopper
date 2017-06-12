@@ -39,6 +39,17 @@ router.get('/:orderId', (req, res, next) => {
   .catch(next);
 });
 
+router.get('/cart/:userId', (req, res, next) => {
+  Order.findOne({
+    where: {
+      userId: req.params.userId,
+      status: 1
+    }
+  })
+    .then(order => {res.json(order)})
+    .catch(next);
+});
+
 router.get('/user/:userId', (req, res, next) => {
   Order.findAll({
     where: {
@@ -61,6 +72,7 @@ router.post('/', (req, res, next) => {
 
 router.post('/:orderId', (req, res, next) => {
   const {quantity, productId} = req.body;
+  console.log('_________________________', quantity, productId, req.order)
   OrderProduct.create({
     quantity,
     productId,
