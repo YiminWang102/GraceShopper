@@ -4,8 +4,12 @@ import {AppBar, ToolbarGroup, FlatButton} from 'material-ui';
 
 const MyNavLinks = (props) => (
   <ToolbarGroup>
-    <FlatButton label="Log In" containerElement={<Link to="/signup"/>} />
     {props.cartId && <FlatButton label="View Cart" containerElement={<Link to={`/cart/${props.cartId}`} />} />}
+    {
+      props.cartId ?
+      <FlatButton label="Log Out" onClick={() => {props.logOut()}}/>
+      :<FlatButton label="Log In" containerElement={<Link to="/signup"/>} />
+    }
   </ToolbarGroup>
 );
 
@@ -13,7 +17,7 @@ const MyAppbar = (props) => (
     <AppBar
       iconElementLeft={<FlatButton label="home" containerElement={<Link to="/"/>} />}
       title="MemeShopper"
-      iconElementRight={<MyNavLinks cartId={props.cartId} />}
+      iconElementRight={<MyNavLinks cartId={props.cartId} logOut={props.logOut} />}
     />
 );
 

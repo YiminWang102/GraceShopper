@@ -16,11 +16,11 @@ module.exports = router
               .then(order => {
                 return user.update({
                   cartId: order.id
-                }, {returning: true})
+                }, {returning: true});
               })
               .then(user => {
                 req.login(user, err => err ? next(err) : res.json(user));
-              })
+              });
           }
           else {
             req.login(user, err => err ? next(err) : res.json(user));
@@ -35,11 +35,11 @@ module.exports = router
           .then(order => {
             return user.update({
               cartId: order.id
-            }, {returning: true})
+            }, {returning: true});
           })
           .then(user => {
-            req.login(user, err => err ? next(err) : res.json(user))
-          })
+            req.login(user, err => err ? next(err) : res.json(user));
+          });
       })
       .catch(err => {
         if (err.name === 'SequelizeUniqueConstraintError')

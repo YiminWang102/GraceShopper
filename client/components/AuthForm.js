@@ -9,13 +9,13 @@ const AuthForm = props => {
     <div>
       <form onSubmit={handleSubmit} name={name}>
         {
-          displayName === 'Sign Up' ? 
+          displayName === 'Sign Up' ?
           (
             <div>
-              <label htmlFor="userName"><small>userName</small></label>
+              <label htmlFor="userName"><small>Name</small></label>
                 <input name="userName" type="text" />
-            </div> 
-          ) : 
+            </div>
+          ) :
           (<div />)
         }
         <div>
