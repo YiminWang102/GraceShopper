@@ -3,7 +3,7 @@ import ReviewsContainer from '../containers/ReviewsContainer';
 import {RaisedButton, TextField} from 'material-ui';
 
 const style = {
-  margin: 12,
+  margin: 12
 };
 
 export default function Product (props) {

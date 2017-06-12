@@ -12,12 +12,17 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     handleClick: event => {
-
+      console.log('Product handleClick');
+      event.preventDefault();
+    },
+    handleSubmit: event => {
+      console.log('Product handleSubmit');
+      event.preventDefault();
     }
   }
 }
 
 
-const ProductContainer = connect(mapStateToProps)(Product);
+const ProductContainer = connect(mapStateToProps, mapDispatchToProps)(Product);
 
 export default ProductContainer;
