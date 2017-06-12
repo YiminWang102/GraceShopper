@@ -1,5 +1,7 @@
 const router = require('express').Router();
 const User = require('../db').model('user');
+const Order = require('./orders');
+const {createNewCartForUser} = require('../../utils');
 module.exports = router;
 
 router.param('userId', (req, res, next, id) => {
@@ -54,5 +56,11 @@ router.delete('/:userId', (req, res, next) => {
     .then( () => {
       res.sendStatus(204);
     })
+    .catch(next);
+});
+
+router.put('/cart/:userId', (req,res,next) => {
+  createNewCartForUser(req.params.userId)
+    .then(user => res.json(user))
     .catch(next);
 });
