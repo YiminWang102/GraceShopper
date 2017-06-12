@@ -16,43 +16,31 @@ module.exports = router
               .then(order => {
                 return user.update({
                   cartId: order.id
-                }, {returning: true})
+                }, {returning: true});
               })
               .then(user => {
                 req.login(user, err => err ? next(err) : res.json(user));
-              })
+              });
           }
           else {
             req.login(user, err => err ? next(err) : res.json(user));
           }
-        //   Order.findOne({
-        //     where: {
-        //       userId: user.id,
-        //       status: 1
-        //     }
-        //   })
-        //     .then(order => {
-        //       if (!order) {
-        //         return Order.create({userId: user.id})
-        //       }
-        //       else {
-        //         return order;
-        //       }
-        //     })
-        //     .then(order => {
-
-        //       req.login(user, err => err ? next(err) : res.json(user));
-        //     })
-        //     .catch(next);
-        // }
       }})
       .catch(next);
   })
   .post('/signup', (req, res, next) => {
     User.create(req.body)
-      .then(user =>
-        req.login(user, err => err ? next(err) : res.json(user))
-      )
+      .then(user => {
+        Order.create({userId: user.id})
+          .then(order => {
+            return user.update({
+              cartId: order.id
+            }, {returning: true});
+          })
+          .then(user => {
+            req.login(user, err => err ? next(err) : res.json(user));
+          });
+      })
       .catch(err => {
         if (err.name === 'SequelizeUniqueConstraintError')
           res.status(401).send('User already exists');

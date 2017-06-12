@@ -5,19 +5,11 @@ import {AppBar, ToolbarGroup, FlatButton} from 'material-ui';
 
 const MyNavLinks = (props) => (
   <ToolbarGroup>
+    {props.cartId && <FlatButton label="View Cart" containerElement={<Link to={`/cart/${props.cartId}`} />} />}
     {
-      props.loggedIn ?
-      (
-       <div>
-         { props.cartId && <FlatButton label="View Cart" containerElement={<Link to={`/cart/${props.cartId}`} />} />}
-         { props.isUserAdmin ? ( <FlatButton label="View Users" containerElement={<Link to="/users" />} /> ) : '' }
-         <FlatButton label="Log Out" containerElement={<Link to="/signup" />} />
-       </div>
-      ) 
-      : 
-      ( 
-       <FlatButton label="Log In" containerElement={<Link to="/signup" />} /> 
-      )
+      props.cartId ?
+      <FlatButton label="Log Out" onClick={() => {props.logOut()}}/>
+      :<FlatButton label="Log In" containerElement={<Link to="/signup"/>} />
     }
   </ToolbarGroup>
 );
@@ -30,8 +22,9 @@ MyNavLinks.propTypes = {
 const MyAppbar = (props) => (
     <AppBar 
       iconElementLeft={<FlatButton label="home" containerElement={<Link to="/"/>} />}
-      title="MemeShopper" 
-      iconElementRight={ <MyNavLinks loggedIn={props.loggedIn} isUserAdmin={props.isUserAdmin} cartId={props.cartId} /> } />
+      title="MemeShopper"
+      iconElementRight={<MyNavLinks cartId={props.cartId} logOut={props.logOut} />}
+    />
 );
 
 export default MyAppbar;
