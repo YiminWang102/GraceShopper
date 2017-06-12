@@ -4,6 +4,7 @@ import products from './products';
 import users from './users';
 import orders from './orders';
 import viewedUser from './viewedUser';
+import reviews from './reviews';
 
 export default combineReducers({
   user,
@@ -11,4 +12,5 @@ export default combineReducers({
   users,
   products,
   orders,
+  reviews
 });
