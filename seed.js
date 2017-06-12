@@ -20,7 +20,7 @@ const data = {
         {title: 'Meme9', description: 'Dank', inventory: 9001, price: 1337, category: 'dank,meme,forever'}
     ],
     users: [
-        {name: "Andrew", email: 'andrew@andrew.com', password: 'andrew'},
+        {name: "Andrew", email: 'andrew@andrew.com', password: 'andrew', isAdmin: true},
         {name: "Matt", email: 'matt@matt.com', password: 'matt'},
         {name: "David", email: 'david@david.com', password: 'david'},
         {name: "Jason", email: 'jason@jason.com', password: 'jason'},
