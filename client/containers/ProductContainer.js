@@ -1,27 +1,23 @@
 import Product from '../components/Product';
 import { connect } from 'react-redux';
-
+import {newOrderProductCreator} from '../action-creators/orderProducts'
 const mapStateToProps = state => {
   return {
     product: state.products.selected,
     orderId: state.orders.selected.orderId,
-    userId: state.user.userId
+    userId: state.user.userId,
+    cartId: state.user.cartId
   };
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    handleClick: event => {
-      console.log('Product handleClick');
+    handleSubmit: (event) => {
       event.preventDefault();
-    },
-    handleSubmit: event => {
-      console.log('Product handleSubmit');
-      event.preventDefault();
+      dispatch(newOrderProductCreator(event.target.button.value, ownProps.params.productId, event.target.quantity.value));
     }
   }
 }
-
 
 const ProductContainer = connect(mapStateToProps, mapDispatchToProps)(Product);
 

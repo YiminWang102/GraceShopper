@@ -1,4 +1,4 @@
-import { RECEIVE_ORDERS, RECEIVE_ORDER, RECEIVE_ORDER_PRODUCTS, CREATE_NEW_ORDER} from '../constants';
+import { RECEIVE_ORDERS, RECEIVE_ORDER, RECEIVE_ORDER_PRODUCTS, CREATE_NEW_ORDER, SET_CART} from '../constants';
 import axios from 'axios';
 
 export const receiveOrders = orders => {
@@ -26,6 +26,20 @@ export const createNewOrder = userId => {
   return ({
     type: CREATE_NEW_ORDER,
     userId
+  });
+};
+
+export const submitOrder = orderId => {
+  return ({
+    type: SUBMIT_ORDER,
+    orderId
+  })
+}
+
+export const setCart = orderId => {
+  return ({
+    type: SET_CART,
+    orderId
   });
 };
 
@@ -62,5 +76,11 @@ export const getOrderById = orderId => dispatch => {
     .then( order => {
       dispatch(receiveOrder(order));
     })
+    .catch(err => {console.error(err);});
+};
+
+export const placeOrder = orderId => dispatch => {
+  axios.put(`/api/orders/update/${orderId}`, {status: 2})
+    .then( res => res.data )
     .catch(err => {console.error(err);});
 };

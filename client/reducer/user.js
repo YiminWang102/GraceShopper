@@ -17,6 +17,7 @@ export const setUser = (id) => dispatch => {
   .catch(error => console.error(error))
 }
 
+
 export const me = () =>
   dispatch =>
     axios.get('/auth/me')

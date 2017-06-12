@@ -83,9 +83,9 @@ ReactDOM.render(
       <Route path="/" component={App} onEnter={onAppEnter}>
         <Route path="/products" component={ProductsContainer} />
         <Route path ="/users" component = {UsersContainer} onEnter = {onUsersEnter}/>
-        <Route path = "/users/:userId" component = {UserContainer} onEnter = {onUserEnter}/>
+        {/*<Route path = "/users/:userId" component = {UserContainer} onEnter = {onUserEnter} need to refactor onUserEnter so that it doesn't use the state as the logged in user/>*/}
         <Route path="/products/:productId" component={ProductContainer} onEnter={onProductEnter} />
-        <Route path="orders/user/:userId" component={OrdersContainer} onEnter={onOrdersEnter}/>
+        <Route path="orders/user/:userId" component={OrdersContainer} onEnter={onOrdersEnter} />
         <Route path="orders/order/:orderId" component={OrderContainer} onEnter={onOrderEnter} />
         <Route path="/cart/:orderId" component={CartContainer} onEnter={onCartEnter} />
         <Route path="signup" component={Main}>
