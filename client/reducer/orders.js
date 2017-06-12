@@ -3,7 +3,7 @@ import {
   RECEIVE_ORDER,
   RECEIVE_ORDER_PRODUCTS,
   CREATE_NEW_ORDER
-} from '../constants';
+} from './constants';
 
 const initialOrdersState = {
   selected: {},

@@ -1,23 +1,20 @@
-import { RECEIVE_PRODUCTS, RECEIVE_PRODUCT } from '../constants';
-import { browserHistory} from 'react-router';
+import { RECEIVE_PRODUCTS, RECEIVE_PRODUCT } from '../reducer/constants';
+import { browserHistory } from 'react-router';
 import axios from 'axios';
 
 export const receiveProducts = products => {
-  console.log('hit receiveProducts. products: ', products);
   return ({
     type: RECEIVE_PRODUCTS,
     products
 })};
 
 export const receiveProduct = product => {
-  console.log('hit receiveProduct. product: ', product)
   return ({
     type: RECEIVE_PRODUCT,
     product
 })};
 
 export const getProductById = productId => {
-  console.log('hit getProductById. productId: ', productId)
   return dispatch => {
     axios.get(`/api/products/${productId}`)
       .then(response => {

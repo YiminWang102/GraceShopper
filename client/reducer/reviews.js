@@ -1,12 +1,8 @@
 import {
-  RECEIVE_PRODUCTS,
-  RECEIVE_PRODUCT
+  RECEIVE_REVIEWS
 } from './constants';
 
-// import {convertProduct, convertProducts} from '../utils';
-
 const initialProductsState = {
-  selected: {},
   list: []
 };
 
@@ -16,12 +12,8 @@ export default function (state = initialProductsState, action) {
 
   switch (action.type) {
 
-    case RECEIVE_PRODUCTS:
-      newState.list = action.products;
-      break;
-
-    case RECEIVE_PRODUCT:
-      newState.selected = action.product;
+    case RECEIVE_REVIEWS:
+      newState.list = action.reviews;
       break;
 
     default:

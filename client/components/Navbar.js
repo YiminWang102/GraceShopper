@@ -20,7 +20,7 @@ MyNavLinks.propTypes = {
 };
 
 const MyAppbar = (props) => (
-    <AppBar 
+    <AppBar
       iconElementLeft={<FlatButton label="home" containerElement={<Link to="/"/>} />}
       title="MemeShopper"
       iconElementRight={<MyNavLinks cartId={props.cartId} logOut={props.logOut} />}

@@ -22,8 +22,9 @@ import CartContainer from './containers/CartContainer';
 
 import { receiveProducts, getProductById, loadAllProducts } from './action-creators/products';
 import { getOrdersByUserId, getOrderById, getOrderProductsByOrderId } from './action-creators/orders';
-import {getAllUsers} from './reducer/users'
-import {setUser} from './reducer/user'
+import { getReviewsByProductId } from './action-creators/reviews';
+import { getAllUsers } from './reducer/users'
+import { setUser } from './reducer/user'
 
 const whoAmI = store.dispatch(me());
 
@@ -37,9 +38,8 @@ const requireLogin = (nextRouterState, replace, next) =>
     .catch(err => console.log(err));
 
 const onAppEnter = () => {
-  console.log('hit onAppEnter')
   const gettingProducts = axios.get('/api/products');
-
+// Remove Promise.all if unneeded
   return Promise
     .all([gettingProducts])
     .then(responses => responses.map(res => res.data))
@@ -60,6 +60,7 @@ const onUserEnter = (nextRouterState) => {
 const onProductEnter = nextRouterState => {
   const productId = nextRouterState.params.productId;
   store.dispatch(getProductById(productId));
+  store.dispatch(getReviewsByProductId(productId));
 }
 
 const onOrdersEnter = nextRouterState => {

@@ -27,6 +27,16 @@ router.get('/:reviewId', (req, res, next) => {
   res.json(req.review);
 });
 
+router.get('/products/:productId', (req, res, next) => {
+  Review.findAll({
+    where: {
+      productId: req.params.productId
+    }
+  })
+    .then(reviews => res.status(200).json(reviews))
+    .catch(next);
+});
+
 router.post('/', (req, res, next) => {
   Review.create(req.body)
     .then( review => {

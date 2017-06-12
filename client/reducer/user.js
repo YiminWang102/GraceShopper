@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { browserHistory } from 'react-router';
-import {SET_CURRENT_USER} from '../constants'
+import {SET_CURRENT_USER} from './constants'
 import {setCurrentUser} from '../action-creators/user'
 
 const GET_USER = 'GET_USER';

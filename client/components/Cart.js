@@ -2,10 +2,8 @@ import React from 'react';
 import {Link} from 'react-router';
 import {RaisedButton} from 'material-ui';
 
-
-
 export default function Product ({cart, onClick}) {
-  console.log('cart :', cart);
+
   return (
     <div className="cart">
       <div>
