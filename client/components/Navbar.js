@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router';
+import PropTypes from 'prop-types';
 import {AppBar, ToolbarGroup, FlatButton} from 'material-ui';
 
 const MyNavLinks = (props) => (
@@ -13,8 +14,13 @@ const MyNavLinks = (props) => (
   </ToolbarGroup>
 );
 
+MyNavLinks.propTypes = {
+  loggedIn: PropTypes.bool.isRequired,
+  isUserAdmin: PropTypes.bool.isRequired
+};
+
 const MyAppbar = (props) => (
-    <AppBar
+    <AppBar 
       iconElementLeft={<FlatButton label="home" containerElement={<Link to="/"/>} />}
       title="MemeShopper"
       iconElementRight={<MyNavLinks cartId={props.cartId} logOut={props.logOut} />}

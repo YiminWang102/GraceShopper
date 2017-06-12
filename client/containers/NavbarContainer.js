@@ -4,6 +4,8 @@ import { logout } from '../reducer/user';
 
 const mapStateToProps = (state) => {
   return {
+    loggedIn: !!state.user.id,
+    isUserAdmin: !!state.user.isAdmin,
     cartId: state.user.cartId
   };
 };

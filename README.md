@@ -14,7 +14,7 @@ To install MemeShopper using npm, run the following in your command line:
     
 ## Running tests
 
-We test our backend with Mocha[https://mochajs.org/] and our frontend application with Enzyme[https://github.com/airbnb/enzyme]. To run the tests, run the following in your command line:
+We test our backend with [Mocha](https://mochajs.org/) and our frontend application with [Enzyme](https://github.com/airbnb/enzyme). To run the tests, run the following in your command line:
 
     $ npm run test
 
