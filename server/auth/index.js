@@ -1,3 +1,4 @@
+const {createNewCartForUser} = require('../../utils');
 const router = require('express').Router();
 const User = require('../db/models/user');
 const Order = require('../db/models/order');
@@ -12,12 +13,7 @@ module.exports = router
           res.status(401).send('Incorrect password');
         else {
           if (!user.cartId) {
-            Order.create({ userId: user.id })
-              .then(order => {
-                return user.update({
-                  cartId: order.id
-                }, {returning: true});
-              })
+            createNewCartForUser(user.id)
               .then(user => {
                 req.login(user, err => err ? next(err) : res.json(user));
               });
@@ -31,15 +27,21 @@ module.exports = router
   .post('/signup', (req, res, next) => {
     User.create(req.body)
       .then(user => {
-        Order.create({userId: user.id})
-          .then(order => {
-            return user.update({
-              cartId: order.id
-            }, {returning: true});
-          })
+
+        createNewCartForUser(user.id)
           .then(user => {
             req.login(user, err => err ? next(err) : res.json(user));
           });
+
+        // Order.create({userId: user.id})
+        //   .then(order => {
+        //     return user.update({
+        //       cartId: order.id
+        //     }, {returning: true});
+        //   })
+        //   .then(user => {
+        //     req.login(user, err => err ? next(err) : res.json(user));
+        //   });
       })
       .catch(err => {
         if (err.name === 'SequelizeUniqueConstraintError')

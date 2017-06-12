@@ -14,8 +14,8 @@ const mapDispatchToProps = dispatch => {
       console.log('logging out');
       dispatch(logout());
     }
-  }
-}
+  };
+};
 
 const NavbarContainer = connect(mapStateToProps, mapDispatchToProps)(Navbar);
 
