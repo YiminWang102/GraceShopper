@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import { logout } from '../reducer/user';
+// import '../index.scss';
+//need to use this stylesheet just for the login/signup pages
 
 // Component //
 

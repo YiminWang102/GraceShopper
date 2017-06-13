@@ -24,8 +24,10 @@ export const getReviewsByProductId = productId => dispatch => {
     .catch(err => {console.error(err);});
 };
 
-export const placeReview = reviewId => dispatch => {
-  axios.post(`/api/reviews/update/${reviewId}`, {status: 2})
+export const addNewReview = (userId, productId, rating, text)  => dispatch => {
+  console.log('ADD REV USERID: ', userId, 'PROD ID: ', productId, 'RATING: ', rating, text);
+  console.log('1', 1)
+  axios.post(`/api/reviews/`, {userId, productId, rating, text})
     .then( res => res.data )
     .catch(err => {console.error(err);});
 };

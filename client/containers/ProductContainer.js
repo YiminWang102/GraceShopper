@@ -5,14 +5,14 @@ const mapStateToProps = state => {
   return {
     product: state.products.selected,
     orderId: state.orders.selected.orderId,
-    userId: state.user.userId,
+    userId: state.user.id,
     cartId: state.user.cartId
   };
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    handleSubmit: (event) => {
+    handleSubmit: event => {
       event.preventDefault();
       dispatch(newOrderProductCreator(event.target.button.value, ownProps.params.productId, event.target.quantity.value));
     }
