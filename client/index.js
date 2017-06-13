@@ -27,7 +27,21 @@ import {setUser} from './reducer/user'
 import {setUserToView} from './action-creators/vieweduser';
 import { getReviewsByProductId } from './action-creators/reviews';
 
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+
 const whoAmI = store.dispatch(me());
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
+
+
+const muiTheme = getMuiTheme({
+  palette: {
+    textColor: '#000000',
+  },
+  textField: {
+    border: '1px solid #FF9800',
+    backgroundColor: '#FFD699'
+  }
+});
 
 const requireLogin = (nextRouterState, replace, next) =>
   whoAmI
@@ -80,6 +94,7 @@ const onCartEnter = nextRouterState => {
 }
 
 ReactDOM.render(
+<MuiThemeProvider muiTheme={muiTheme}>
   <Provider store={store}>
     <Router history={browserHistory}>
       <Route path="/" component={App} onEnter={onAppEnter}>
@@ -101,6 +116,7 @@ ReactDOM.render(
         <IndexRedirect to="/products" />
       </Route>
     </Router>
-  </Provider>,
+  </Provider>
+  </MuiThemeProvider>,
   document.getElementById('app')
 );

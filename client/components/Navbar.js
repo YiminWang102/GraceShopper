@@ -5,6 +5,23 @@ import {AppBar, ToolbarGroup, FlatButton} from 'material-ui';
 
 const MyNavLinks = (props) => (
   <ToolbarGroup>
+    <div>
+      <form onSubmit={props.handleSearchSubmit}>
+        <div>
+          <div>
+            <input
+              type="text"
+              value={props.memeQuery}
+              placeholder="Enter an meme name"
+              onChange={props.memeChange}
+            />
+          </div>
+        </div>
+        <button type="submit">
+          Search for Memes
+        </button>
+      </form>
+    </div>
     {props.cartId &&
       <div>
         <FlatButton label="View Past Orders" containerElement={<Link to={`/orders/user/${props.userId}`} />} />
@@ -20,6 +37,7 @@ const MyNavLinks = (props) => (
       <FlatButton label="Log Out" onClick={() => {props.logOut()}}/>
       :<FlatButton label="Log In" containerElement={<Link to="/signup"/>} />
     }
+
   </ToolbarGroup>
 );
 
@@ -32,12 +50,9 @@ const MyAppbar = (props) => (
     <AppBar
       iconElementLeft={<FlatButton label="home" containerElement={<Link to="/"/>} />}
       title="MemeShopper"
-      iconElementRight={<MyNavLinks 
-                          userId={props.user.id} 
-                          cartId={props.user.cartId} 
-                          logOut={props.logOut}
-                          loggedIn={props.loggedIn}
-                          isUserAdmin={props.isUserAdmin} />}
+      iconElementRight={<MyNavLinks
+                          {...props}
+ />}
     />
 );
 

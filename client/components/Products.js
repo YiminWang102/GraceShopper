@@ -4,7 +4,6 @@ import {Link} from 'react-router';
 export default function Products (props) {
 
   const products = props.products;
-  console.log(products);
   return (
     <div>
       <h3>Products</h3>
@@ -27,4 +26,4 @@ export default function Products (props) {
       </div>
     </div>
   );
-};
+}
