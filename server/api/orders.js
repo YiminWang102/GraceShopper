@@ -26,7 +26,9 @@ router.param('orderId', (req, res, next, id) => {
 });
 
 router.get('/', (req, res, next) => {
-  Order.findAll()
+  Order.findAll({
+    order: [['id', 'DESC']]
+  })
     .then(allOrders => {
       res.status(200).json(allOrders);
     })
@@ -84,16 +86,27 @@ router.post('/', (req, res, next) => {
 });
 
 router.post('/:orderId', (req, res, next) => {
-  const {quantity, productId} = req.body;
-  OrderProduct.create({
-    quantity,
-    productId,
-    orderId: req.order.id
-  })
+  let {quantity, productId} = req.body;
+  if (!quantity || !productId) {
+    // send error response
+    console.log('=========================!quant or !product');
+    next();
+  } else {
+    quantity = +quantity;
+    productId = +productId;
+
+    console.log('234234', req.order.id);
+    OrderProduct.create({
+      quantity,
+      productId,
+      orderId: req.order.id
+    })
     .then(() => {
-      res.status(201).send(`Product ID: ${req.body.productId} added to order ${req.order.id}`)
+      res.status(201).send(`Product ID: ${req.body.productId} added to order ${req.order.id}`);
     })
     .catch(next);
+
+  }
 });
 
 // User route for changing quantity of a Product in their Order
@@ -127,13 +140,18 @@ router.put('/cart/:orderId', (req, res, next) => {
 router.put('/update/:orderId', (req, res, next) => {
   // ex: req.body => {status: 1}
   let newCart = false;
+  let databaseOrder;
   if(req.order.status === 1) newCart = true;
   req.order.update(req.body, {returning: true})
     .then(order => {
-      if(newCart) {
-        createNewCartForUser(order.userId)
-          .then( () => {res.status(200).json(order)})}
-      else res.status(200).json(order);
+      databaseOrder = order;
+      if(newCart) return createNewCartForUser(order.userId);
+          //.then( () => {res.status(200).json(order)})}
+      else return;
+      //order res.status(200).json(order);
+    })
+    .then( () => {
+      res.json(databaseOrder);
     })
     .catch(next);
 });
@@ -141,7 +159,7 @@ router.put('/update/:orderId', (req, res, next) => {
 router.delete('/:orderId', (req, res, next) => {
   req.order.destroy()
     .then(() => {
-      res.sendStatus(204)
+      res.sendStatus(204);
     })
-    .catch(next)
+    .catch(next);
 });

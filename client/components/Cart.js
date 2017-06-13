@@ -1,9 +1,6 @@
 import React from 'react';
 import {RaisedButton, TextField} from 'material-ui';
 
-
-
-
 const STATUSES = {
   1: 'Created',
   2: 'Processing',
