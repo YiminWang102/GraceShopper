@@ -5,7 +5,7 @@ var Rating = require('react-rating');
 export default function Reviews (props) {
 
   const reviews = props.reviews;
-  console.log('rev props: ', props);
+  //console.log('rev props: ', props);
   return (
     <div>
       {
