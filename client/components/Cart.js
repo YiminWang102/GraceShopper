@@ -33,6 +33,7 @@ export default function Product ({cart, handlePromoCode, handleOrderSubmit, hand
           <RaisedButton label="Add Promo Code" type="submit" name="promo" value={cart ? cart.id : null} />
         </form>
         <form onSubmit={handleOrderSubmit}>
+          <RaisedButton label="Submit Order" type="" name="promo" value={cart ? cart.id : null} />
           <h4>Status: { cart && STATUSES[cart.status] }</h4>
           <RaisedButton label="Submit Order" type="submit" name="button" value={cart ? cart.id : null} />
         </form>

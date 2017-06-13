@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import Users from '../components/Users';
-import {deleteSelectedUser} from '../reducer/users.js';
+import {deleteSelectedUser, promoteSelectedUser} from '../reducer/users.js';
 
 const mapStateToProps = function(state) {
   return {
@@ -15,6 +15,10 @@ const mapDispatchToProps = (dispatch) => {
     deleteUser: (event, id) => {
       event.preventDefault();
       dispatch(deleteSelectedUser(id));
+    },
+    promoteUser: (event, id) => {
+      event.preventDefault();
+      dispatch(promoteSelectedUser(id));
     }
   }
 }

@@ -63,7 +63,10 @@ router.get('/cart/:userId', (req, res, next) => {
 router.get('/user/:userId', (req, res, next) => {
   Order.findAll({
     where: {
-      userId: req.params.userId
+      userId: req.params.userId,
+      not: {
+        status: 1
+      }
     }
   })
     .then( orders => {
