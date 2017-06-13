@@ -4,7 +4,13 @@ import {placeOrder, quantityUpdater} from '../action-creators/orders'
 
 const mapStateToProps = (state) => {
   return {
-    cart: state.orders.selected.orderProducts
+    cart: state.orders.selected.orderProducts,
+    handlePromoCode: (event) => {
+      if (event.promo.value === 'hotgeoff') {
+        this.cart.totalPrice /= 2
+      }
+      console.log('------------------------------------------')
+    }
   };
 };
 
