@@ -17,4 +17,3 @@ export const newOrderProductCreator = (orderId, productId, quantity) => dispatch
     })
     .catch(err => {console.error(err);});
 };
-
