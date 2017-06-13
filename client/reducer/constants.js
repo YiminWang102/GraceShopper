@@ -13,3 +13,4 @@ export const SET_CART = 'SET_CART';
 export const SET_VIEWED_USER = 'SET_VIEWED_USER';
 export const DELETE_USER = 'DELETE_USER';
 export const RECEIVE_REVIEWS = 'RECEIVE_REVIEWS';
+export const PROMOTE_USER = 'PROMOTE_USER';

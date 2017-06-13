@@ -12,6 +12,10 @@ const MyNavLinks = (props) => (
       </div>
     }
     {
+      props.isUserAdmin ?
+      <FlatButton label="View All Users" containerElement={<Link to={'/users/'} /> } /> : ''
+    }
+    {
       props.cartId ?
       <FlatButton label="Log Out" onClick={() => {props.logOut()}}/>
       :<FlatButton label="Log In" containerElement={<Link to="/signup"/>} />
@@ -28,7 +32,12 @@ const MyAppbar = (props) => (
     <AppBar
       iconElementLeft={<FlatButton label="home" containerElement={<Link to="/"/>} />}
       title="MemeShopper"
-      iconElementRight={<MyNavLinks userId={props.user.id} cartId={props.user.cartId} logOut={props.logOut} />}
+      iconElementRight={<MyNavLinks 
+                          userId={props.user.id} 
+                          cartId={props.user.cartId} 
+                          logOut={props.logOut}
+                          loggedIn={props.loggedIn}
+                          isUserAdmin={props.isUserAdmin} />}
     />
 );
 
