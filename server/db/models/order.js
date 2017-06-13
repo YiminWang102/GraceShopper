@@ -23,6 +23,10 @@ module.exports = db.define('order', {
   totalPrice: {
     type: Sequelize.INTEGER,
     defaultValue: 0
+  },
+  isDiscounted: {
+    type: Sequelize.BOOLEAN,
+    defaultValue: false
   }
 }, {
   instanceMethods: {
@@ -44,6 +48,9 @@ module.exports = db.define('order', {
          result.forEach((item, index) => {
            totalPrice += (item.price / 100) * quantities[index]
          })
+         if (this.isDiscounted){
+           return totalPrice / 2
+         }
          return totalPrice
        })
        .catch(err => {
