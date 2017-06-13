@@ -3,7 +3,8 @@ import {
   RECEIVE_ORDER,
   RECEIVE_ORDER_PRODUCTS,
   CREATE_NEW_ORDER,
-  UPDATE_QUANTITY
+  UPDATE_QUANTITY,
+  ADD_DISCOUNT
 } from './constants';
 
 
@@ -42,6 +43,10 @@ export default function (state = initialOrdersState, action) {
       }
       break;
 
+    case ADD_DISCOUNT:
+      newState.selected.orderProducts.totalPrice = action.newPrice
+      newState.selected.orderProducts.isDiscounted = true
+      break;
 
     default:
       return state;

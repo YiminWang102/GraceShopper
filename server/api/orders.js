@@ -38,12 +38,12 @@ router.get('/', (req, res, next) => {
 router.get('/:orderId', (req, res, next) => {
   Order.findById(req.order.id, {include: [ { model: Product, through: OrderProduct }]})
   .then(order => {
-    return order.getTotalPrice()
-    .then(result => {
-      return order.update({totalPrice: result})
+    order.getTotalPrice()
+    .then((total) => {
+      return order.update({totalPrice: total}, {returning: true})
     })
-    .then(() => {
-      res.json(order);
+    .then((updatedOrder) => {
+      res.json(updatedOrder)
     })
   })
   .catch(next);
@@ -86,54 +86,74 @@ router.post('/', (req, res, next) => {
 });
 
 router.post('/:orderId', (req, res, next) => {
-  let {quantity, productId} = req.body;
-  if (!quantity || !productId) {
-    // send error response
-    console.log('=========================!quant or !product');
-    next();
-  } else {
-    quantity = +quantity;
-    productId = +productId;
-
-    console.log('234234', req.order.id);
+  if (!req.order) {
+    next()
+  }
+  else {
+    let {quantity, productId} = req.body;
+    quantity = parseInt(quantity, 10)
+    productId = parseInt(productId, 10)
+    console.log('-----------------------------------------------------------', req.order.id)
+    console.log('-----------------------------------------------------------', quantity)
+    console.log('-----------------------------------------------------------', productId)
     OrderProduct.create({
       quantity,
       productId,
       orderId: req.order.id
     })
-    .then(() => {
-      res.status(201).send(`Product ID: ${req.body.productId} added to order ${req.order.id}`);
-    })
-    .catch(next);
-
+      .then(() => {
+        res.status(201).send(`Product ID: ${req.body.productId} added to order ${req.order.id}`)
+      })
+      .catch(next);
   }
 });
 
-// User route for changing quantity of a Product in their Order
+// User route for changing quantity of a Product in their Order or adding a Promo Code
 router.put('/cart/:orderId', (req, res, next) => {
-  OrderProduct.findOne({
-    where: {
-      orderId: req.order.id,
-      productId: req.body.productId
-    }
-  })
-    .then(foundOrderProduct => {
-      console.log('------------------------------------' + req.body.quantity + '----------------' + req.order.id)
-      // If quantity is 0, user is effectively removing product from their order
-      let quantityPromise = (req.body.quantity > 0) ? foundOrderProduct.update({quantity: req.body.quantity}, {returning: true}) : foundOrderProduct.destroy();
-      return quantityPromise
-   })
-    .then(quantityPromiseResult => {
-      console.log(quantityPromiseResult)
-      // destroy() resolves to an integer
-      if (typeof quantityPromiseResult === 'number') {
-          res.status(204).send(`Deleted product ${req.body.productId} from order ${req.order.id}`);
-      }
-      else {
-          res.status(204).json(quantityPromiseResult)
+
+  if (req.body.isDiscounted) {
+    req.order.update({totalPrice: req.body.newPrice, isDiscounted: req.body.isDiscounted}, {returning: true})
+    .then((updatedOrder) => {
+      res.json(updatedOrder)
+    })
+  }
+  else {
+    console.log('------------------------------------' + req.body.quantity + '----------------' + req.order.id)
+    OrderProduct.findOne({
+      where: {
+        orderId: req.order.id,
+        productId: req.body.productId
       }
     })
-    .catch(next);
+      .then(foundOrderProduct => {
+                console.log('------------------------------------' + foundOrderProduct + '----------------')
+        // If quantity is 0, user is effectively removing product from their order
+        let quantityPromise = (req.body.quantity > 0) ? foundOrderProduct.update({quantity: req.body.quantity}, {returning: true}) : foundOrderProduct.destroy();
+        return quantityPromise
+     })
+      .then(quantityPromiseResult => {
+        // destroy() resolves to an integer
+        if (typeof quantityPromiseResult === 'number') {
+          return req.order.getTotalPrice()
+            .then(result => {
+              return req.order.update({totalPrice: result})
+            })
+            .then(() => {
+              res.status(204).send(`Deleted product ${req.body.productId} from order ${req.order.id}`);
+            })
+        }
+        else {
+          return req.order.getTotalPrice()
+            .then(result => {
+              return req.order.update({totalPrice: result})
+            })
+            .then(() => {
+              res.status(204).json(quantityPromiseResult)
+            })
+        }
+      })
+      .catch(next);
+  }
 });
 
 // Admin route for updating status of Order
