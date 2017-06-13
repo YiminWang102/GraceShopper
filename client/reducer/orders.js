@@ -2,8 +2,10 @@ import {
   RECEIVE_ORDERS,
   RECEIVE_ORDER,
   RECEIVE_ORDER_PRODUCTS,
-  CREATE_NEW_ORDER
+  CREATE_NEW_ORDER,
+  UPDATE_QUANTITY
 } from './constants';
+
 
 const initialOrdersState = {
   selected: {},
@@ -30,6 +32,16 @@ export default function (state = initialOrdersState, action) {
     case CREATE_NEW_ORDER:
       newState.selected.userId = action.userId;
       break;
+
+    case UPDATE_QUANTITY:
+      for (let i = 0; i < state.selected.orderProducts.length; i++) {
+        if (state.selected.orderProducts[i].id === action.productId) {
+          newState.selected.orderProducts[i].quantity = action.quantity
+          break;
+        }
+      }
+      break;
+
 
     default:
       return state;

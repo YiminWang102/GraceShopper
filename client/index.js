@@ -24,7 +24,7 @@ import { receiveProducts, getProductById, loadAllProducts } from './action-creat
 import { getOrdersByUserId, getOrderById, getOrderProductsByOrderId } from './action-creators/orders';
 import {getAllUsers} from './reducer/users'
 import {setUser} from './reducer/user'
-import {setUserToView} from './action-creators/viewedUser';
+import {setUserToView} from './action-creators/vieweduser';
 import { getReviewsByProductId } from './action-creators/reviews';
 
 const whoAmI = store.dispatch(me());

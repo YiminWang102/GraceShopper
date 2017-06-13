@@ -1,6 +1,6 @@
 import Cart from '../components/Cart';
 import { connect } from 'react-redux';
-import {placeOrder} from '../action-creators/orders'
+import {placeOrder, quantityUpdater} from '../action-creators/orders'
 
 const mapStateToProps = (state) => {
   return {
@@ -8,11 +8,15 @@ const mapStateToProps = (state) => {
   };
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    onClick: event => {
+    handleOrderSubmit: event => {
       dispatch(placeOrder(event.target.button.value))
-      alert("Your order has been placed!")
+      alert('Your order has been placed!')
+    },
+
+    handleQuantityUpdate: event => {
+      dispatch(quantityUpdater(ownProps.params.orderId, event.target.quantitySubmit.value, event.target.quantity.value))
     }
   }
 }
