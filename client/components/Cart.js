@@ -1,8 +1,17 @@
 import React from 'react';
 import {RaisedButton, TextField} from 'material-ui';
 
+
+
+
+const STATUSES = {
+  1: 'Created',
+  2: 'Processing',
+  3: 'Cancelled',
+  4: 'Complete'
+}
+
 export default function Product ({cart, handleOrderSubmit, handleQuantityUpdate}) {
-  console.log('cart :', cart);
   return (
     <div className="cart">
       <div>
@@ -25,6 +34,8 @@ export default function Product ({cart, handleOrderSubmit, handleQuantityUpdate}
         }
         <form onSubmit={handleOrderSubmit}>
           <TextField name="promo" defaultValue="" floatingLabelText="Promo Code" />
+          <RaisedButton label="Submit Order" type="submit" name="button" value={cart ? cart.id : null} />
+          <h4>Status: { cart && STATUSES[cart.status] }</h4>
           <RaisedButton label="Submit Order" type="submit" name="button" value={cart ? cart.id : null} />
         </form>
       </div>

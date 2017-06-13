@@ -1,24 +1,13 @@
 import React from 'react';
 
-const fakeReviews = [{
-  text: 'review 1',
-  rating: 5,
-  id: 1,
-},{
-  text: 'review 2',
-  rating: 4,
-  id: 2
-}
-];
-
 export default function Reviews (props) {
 
-  const reviews = fakeReviews;
-
+  const reviews = props.reviews;
+  console.log(reviews);
   return (
     <div>
       {
-        reviews.map(review => (
+        reviews && reviews.map(review => (
           <div key={review.id} className="review">
             <div>
               <h3>Rating: { review.rating }</h3>

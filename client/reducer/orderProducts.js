@@ -1,6 +1,6 @@
 import {
   CREATE_NEW_ORDERPRODUCT
-} from '../constants';
+} from './constants';
 
 const initialOrdersState = {
 };

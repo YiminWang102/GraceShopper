@@ -3,7 +3,7 @@ import User from '../components/User';
 
 const mapStateToProps = (state) => {
   return {
-    currentUser: state.user
+    viewedUser: state.viewedUser
   }
 }
 

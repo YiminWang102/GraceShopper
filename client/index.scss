@@ -19,3 +19,13 @@ body {
     display: inline-block;
   }
 }
+
+.UserCard {
+  border: 2px black solid;
+  margin: 5px;
+}
+
+.UserCard:hover {
+  position: relative;
+  top: -5px;
+}

@@ -1,6 +1,8 @@
 const Order = require('../db/models/order');
 const OrderProduct = require('../db/models/orderproduct');
 const Product = require('../db/models/product');
+const {createNewCartForUser} = require('../../utils');
+
 
 const router = require('express').Router();
 
@@ -121,9 +123,14 @@ router.put('/cart/:orderId', (req, res, next) => {
 // Admin route for updating status of Order
 router.put('/update/:orderId', (req, res, next) => {
   // ex: req.body => {status: 1}
+  let newCart = false;
+  if(req.order.status === 1) newCart = true;
   req.order.update(req.body, {returning: true})
-    .then(updatedStatus => {
-      res.status(200).json(updatedStatus);
+    .then(order => {
+      if(newCart) {
+        createNewCartForUser(order.userId)
+          .then( () => {res.status(200).json(order)})}
+      else res.status(200).json(order);
     })
     .catch(next);
 });

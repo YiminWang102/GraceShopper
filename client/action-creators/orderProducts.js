@@ -1,4 +1,4 @@
-import { CREATE_NEW_ORDERPRODUCT } from '../constants';
+import { CREATE_NEW_ORDERPRODUCT } from '../reducer/constants';
 import axios from 'axios';
 export const createNewOrderProduct = (orderId, productId, quantity) => {
   return ({

@@ -12,7 +12,6 @@ const Main = props => {
 
   return (
     <div>
-      <h1>BOILERMAKER</h1>
       { loggedIn ?
           <nav>
             <Link to="/">Home</Link>

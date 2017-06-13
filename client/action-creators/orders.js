@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 import { RECEIVE_ORDERS, RECEIVE_ORDER, RECEIVE_ORDER_PRODUCTS, CREATE_NEW_ORDER, SET_CART, UPDATE_QUANTITY} from '../constants';
+=======
+import { RECEIVE_ORDERS, RECEIVE_ORDER, RECEIVE_ORDER_PRODUCTS, CREATE_NEW_ORDER, SET_CART} from '../reducer/constants';
+>>>>>>> master
 import axios from 'axios';
 
 export const updateQuantity = (orderId, productId, quantity) => {
@@ -87,6 +91,11 @@ export const getOrderById = orderId => dispatch => {
     .catch(err => {console.error(err);});
 };
 
+
+/*
+- Create new Order in table
+- Set current user's cartId to id of newly created Order
+*/
 export const placeOrder = orderId => dispatch => {
   axios.put(`/api/orders/update/${orderId}`, {status: 2})
     .then( res => res.data )
