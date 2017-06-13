@@ -1,7 +1,7 @@
 import React from 'react';
 import {Link} from 'react-router';
 
-const allUsers = ({users, deleteUser, currentUser, promoteUser}) => {
+const allUsers = ({users, deleteUser, currentUser, promoteUser, resetPassword}) => {
   return (
     <div>
     {
@@ -20,6 +20,7 @@ const allUsers = ({users, deleteUser, currentUser, promoteUser}) => {
                 { !user.isAdmin ?
                   <button type="button" onClick={(e) => promoteUser(e, user.id)}>Make Admin</button> : ''
                 }
+                { !user.resetPassword ? <button type="button" onClick={(e) => resetPassword(e, user.id)}>Reset Password</button> : '' }
               </div> 
             </Link>
           </div>
