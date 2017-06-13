@@ -12,7 +12,7 @@ export default function Orders (props) {
         {
           orders && orders.map( order => (
             <div className="col-xs-4" key={ order.id }>
-              <Link to={`/orders/${order.id}`}>
+              <Link to={`/orders/order/${order.id}`}>
                 <div className="orderInfo">
                   <h5>
                     <span>Order placed on {order.createdAt}: Total Price: ${order.totalPrice}</span>

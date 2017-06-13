@@ -7,7 +7,7 @@ const mapStateToProps = (state) => {
     loggedIn: !!state.user.id,
     isUserAdmin: !!state.user.isAdmin,
     user: state.user,
-    cartId: state.user.cartId 
+    cartId: state.user.cartId
   };
 };
 

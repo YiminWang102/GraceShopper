@@ -71,7 +71,7 @@ const onOrdersEnter = nextRouterState => {
 
 const onOrderEnter = nextRouterState => {
   const orderId = nextRouterState.params.orderId;
-  store.dispatch(getOrderById(orderId));
+  store.dispatch(getOrderProductsByOrderId(orderId));
 }
 
 const onCartEnter = nextRouterState => {
