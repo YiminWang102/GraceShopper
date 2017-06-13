@@ -28,6 +28,7 @@ module.exports = db.define('order', {
   instanceMethods: {
     getTotalPrice: function() {
       let totalPrice = 0
+      let quantities = []
       return OrderProduct.findAll({
         where: {
           orderId: this.id
@@ -35,12 +36,13 @@ module.exports = db.define('order', {
       })
        .then(itemsInOrder => {
          return Promise.all(itemsInOrder.map((item) => {
+           quantities.push(item.quantity)
            return Product.findById(item.productId)
          }))
        })
        .then(result => {
-         result.forEach(item => {
-           totalPrice += (item.price / 100)
+         result.forEach((item, index) => {
+           totalPrice += (item.price / 100) * quantities[index]
          })
          return totalPrice
        })

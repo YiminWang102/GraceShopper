@@ -1,8 +1,6 @@
-<<<<<<< HEAD
-import { RECEIVE_ORDERS, RECEIVE_ORDER, RECEIVE_ORDER_PRODUCTS, CREATE_NEW_ORDER, SET_CART, UPDATE_QUANTITY} from '../constants';
-=======
-import { RECEIVE_ORDERS, RECEIVE_ORDER, RECEIVE_ORDER_PRODUCTS, CREATE_NEW_ORDER, SET_CART} from '../reducer/constants';
->>>>>>> master
+
+import { RECEIVE_ORDERS, RECEIVE_ORDER, RECEIVE_ORDER_PRODUCTS, CREATE_NEW_ORDER, SET_CART, UPDATE_QUANTITY} from '../reducer/constants';
+
 import axios from 'axios';
 
 export const updateQuantity = (orderId, productId, quantity) => {
