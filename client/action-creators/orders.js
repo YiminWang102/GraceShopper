@@ -1,5 +1,17 @@
+<<<<<<< HEAD
+import { RECEIVE_ORDERS, RECEIVE_ORDER, RECEIVE_ORDER_PRODUCTS, CREATE_NEW_ORDER, SET_CART, UPDATE_QUANTITY} from '../constants';
+=======
 import { RECEIVE_ORDERS, RECEIVE_ORDER, RECEIVE_ORDER_PRODUCTS, CREATE_NEW_ORDER, SET_CART} from '../reducer/constants';
+>>>>>>> master
 import axios from 'axios';
+
+export const updateQuantity = (orderId, productId, quantity) => {
+  return ({
+    type: UPDATE_QUANTITY,
+    productId,
+    quantity
+  });
+};
 
 export const receiveOrders = orders => {
   return ({
@@ -89,3 +101,9 @@ export const placeOrder = orderId => dispatch => {
     .then( res => res.data )
     .catch(err => {console.error(err);});
 };
+
+export const quantityUpdater = (orderId, productId, quantity) => dispatch => {
+  axios.put(`/api/orders/cart/${orderId}`, {productId, quantity})
+    .then(res => dispatch(updateQuantity(res.data)))
+    .catch(error => console.error(error))
+}
