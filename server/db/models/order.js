@@ -22,24 +22,29 @@ module.exports = db.define('order', {
   },
   totalPrice: {
     type: Sequelize.INTEGER,
+    defaultValue: 0
   }
 }, {
   instanceMethods: {
-    calculateTotalPrice: function() {
-      OrderProduct.findAll({
+    getTotalPrice: function() {
+      let totalPrice = 0
+      let quantities = []
+      return OrderProduct.findAll({
         where: {
           orderId: this.id
         }
       })
        .then(itemsInOrder => {
-         let totalPrice = 0;
-         itemsInOrder.forEach(item => {
-          Product.findById(item.productId)
-            .then(productInfo => {
-               totalPrice += item.quantity * productInfo.price;
-            })
+         return Promise.all(itemsInOrder.map((item) => {
+           quantities.push(item.quantity)
+           return Product.findById(item.productId)
+         }))
+       })
+       .then(result => {
+         result.forEach((item, index) => {
+           totalPrice += (item.price / 100) * quantities[index]
          })
-         return totalPrice / 100;
+         return totalPrice
        })
        .catch(err => {
         console.error(err);
