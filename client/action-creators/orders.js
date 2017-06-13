@@ -1,5 +1,5 @@
 
-import { RECEIVE_ORDERS, RECEIVE_ORDER, RECEIVE_ORDER_PRODUCTS, CREATE_NEW_ORDER, SET_CART, UPDATE_QUANTITY} from '../reducer/constants';
+import { RECEIVE_ORDERS, RECEIVE_ORDER, RECEIVE_ORDER_PRODUCTS, CREATE_NEW_ORDER, SET_CART, UPDATE_QUANTITY, ADD_DISCOUNT} from '../reducer/constants';
 
 import axios from 'axios';
 
@@ -53,6 +53,15 @@ export const setCart = orderId => {
   });
 };
 
+export const applyDiscount = (orderId, newPrice, isDiscounted) => {
+  return ({
+    type: ADD_DISCOUNT,
+    orderId,
+    newPrice,
+    isDiscounted
+  })
+}
+
 export const newOrderCreator = userId => dispatch => {
   axios.post('/api/orders', {userId})
     .then( res => res.data )
@@ -104,4 +113,13 @@ export const quantityUpdater = (orderId, productId, quantity) => dispatch => {
   axios.put(`/api/orders/cart/${orderId}`, {productId, quantity})
     .then(res => dispatch(updateQuantity(res.data)))
     .catch(error => console.error(error))
+}
+
+export const discountApplicator = (orderId, newPrice, isDiscounted) => dispatch => {
+  axios.put(`/api/orders/cart/${orderId}`, {newPrice, isDiscounted})
+  .then(res => res.data)
+  .then(order => {
+    dispatch(applyDiscount(order.id, order.totalPrice, order.isDiscounted))
+  })
+  .catch(error => console.error(error))
 }
