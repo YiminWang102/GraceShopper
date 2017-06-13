@@ -11,15 +11,15 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     handleOrderSubmit: event => {
-      dispatch(placeOrder(event.target.button.value))
-      alert('Your order has been placed!')
+      dispatch(placeOrder(event.target.button.value));
+      alert('Your order has been placed!');
     },
 
     handleQuantityUpdate: event => {
-      dispatch(quantityUpdater(ownProps.params.orderId, event.target.quantitySubmit.value, event.target.quantity.value))
+      dispatch(quantityUpdater(ownProps.params.orderId, event.target.quantitySubmit.value, event.target.quantity.value));
     }
-  }
-}
+  };
+};
 const CartContainer = connect(
   mapStateToProps, mapDispatchToProps
 )(Cart);
