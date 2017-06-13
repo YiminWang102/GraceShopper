@@ -19,7 +19,7 @@ export default function Product (props) {
           <TextField name="quantity" defaultValue="1" floatingLabelText="Quantity" />
           <RaisedButton value={props.cartId} name="button" label="Add to Cart" style={style} type="submit" />
         </form>
-        <ReviewsContainer />
+        <ReviewsContainer prodId={product.id} userId={props.userId} />
       </div>
     </div>
   );
