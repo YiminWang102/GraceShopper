@@ -25,8 +25,7 @@ export const getReviewsByProductId = productId => dispatch => {
 };
 
 export const addNewReview = (userId, productId, rating, text)  => dispatch => {
-  console.log('ADD REV USERID: ', userId, 'PROD ID: ', productId, 'RATING: ', rating, text);
-  console.log('1', 1)
+  //console.log('ADD REV USERID: ', userId, 'PROD ID: ', productId, 'RATING: ', rating, text);
   axios.post(`/api/reviews/`, {userId, productId, rating, text})
     .then( res => res.data )
     .catch(err => {console.error(err);});
