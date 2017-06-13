@@ -16,7 +16,6 @@ export default function Product ({cart, handleOrderSubmit, handleQuantityUpdate}
     <div className="cart">
       <div>
         <h4>Total: { cart && cart.totalPrice } </h4>
-        <h4>Status: { cart && cart.status }</h4>
         {
           cart && cart.products.map(product => {
             return (
@@ -34,7 +33,7 @@ export default function Product ({cart, handleOrderSubmit, handleQuantityUpdate}
         }
         <form onSubmit={handleOrderSubmit}>
           <TextField name="promo" defaultValue="" floatingLabelText="Promo Code" />
-          <RaisedButton label="Submit Order" type="submit" name="button" value={cart ? cart.id : null} />
+          <RaisedButton label="Submit Order" type="" name="promo" value={cart ? cart.id : null} />
           <h4>Status: { cart && STATUSES[cart.status] }</h4>
           <RaisedButton label="Submit Order" type="submit" name="button" value={cart ? cart.id : null} />
         </form>
