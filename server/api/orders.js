@@ -93,9 +93,9 @@ router.post('/:orderId', (req, res, next) => {
     let {quantity, productId} = req.body;
     quantity = parseInt(quantity, 10)
     productId = parseInt(productId, 10)
-    console.log('-----------------------------------------------------------', req.order.id)
-    console.log('-----------------------------------------------------------', quantity)
-    console.log('-----------------------------------------------------------', productId)
+    // console.log('-----------------------------------------------------------', req.order.id)
+    // console.log('-----------------------------------------------------------', quantity)
+    // console.log('-----------------------------------------------------------', productId)
     OrderProduct.create({
       quantity,
       productId,
