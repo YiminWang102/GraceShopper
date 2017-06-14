@@ -4,11 +4,6 @@ module.exports = {
     path: __dirname,
     filename: './public/bundle.js'
   },
-  externals: {
-    'cheerio': 'window',
-    'react/lib/ExecutionEnvironment': true,
-    'react/lib/ReactContext': true,
-  },
   devtool: 'source-map',
   module: {
     rules: [
