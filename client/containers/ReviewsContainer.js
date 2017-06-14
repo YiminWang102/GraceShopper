@@ -5,7 +5,8 @@ import { addNewReview } from '../action-creators/reviews'
 
 const mapStateToProps = (state) => {
   return {
-    reviews: state.reviews.list
+    reviews: state.reviews.list,
+    currentUser: state.user
   };
 };
 
@@ -28,18 +29,16 @@ class ReviewsContainer extends Component {
   }
 
   handleTextFieldChange (event) {
+
     this.setState({
       text: event.target.value,
     });
   }
-  handleRatingChange (value) {
-    this.setState({
-      rating: value
-    });
-    return value;
+  handleRatingChange (rating) {
+    this.setState({ rating });
   }
   handleSubmit (event) {
-    event.preventDefault();
+    // event.preventDefault();
     // console.log('this.props is: ', this.props, 'state: ', this.state)
     const userId = this.props.userId;
     const prodId = this.props.prodId;
@@ -50,8 +49,6 @@ class ReviewsContainer extends Component {
   }
 
   render() {
-
-
     return (
       <Reviews
         {...this.props}

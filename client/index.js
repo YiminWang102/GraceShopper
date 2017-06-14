@@ -19,6 +19,7 @@ import UserContainer from './containers/UserContainer';
 import OrdersContainer from './containers/OrdersContainer';
 import OrderContainer from './containers/OrderContainer';
 import CartContainer from './containers/CartContainer';
+import AddProductContainer from './containers/AddProductContainer'
 import PasswordContainer from './containers/PasswordContainer';
 import AllOrdersContainer from './containers/AllOrdersContainer';
 
@@ -29,7 +30,21 @@ import {setUser} from './reducer/user'
 import {setUserToView} from './action-creators/vieweduser';
 import { getReviewsByProductId } from './action-creators/reviews';
 
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+
 const whoAmI = store.dispatch(me());
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
+
+
+const muiTheme = getMuiTheme({
+  palette: {
+    textColor: '#000000',
+  },
+  textField: {
+    border: '1px solid #FF9800',
+    backgroundColor: '#FFD699'
+  }
+});
 
 const requireLogin = (nextRouterState, replace, next) =>
   whoAmI
@@ -85,6 +100,7 @@ const onAllOrdersEnter = nextRouterState => {
 }
 
 ReactDOM.render(
+<MuiThemeProvider muiTheme={muiTheme}>
   <Provider store={store}>
     <Router history={browserHistory}>
       <Route path="/" component={App} onEnter={onAppEnter}>
@@ -92,6 +108,7 @@ ReactDOM.render(
         <Route path ="/users" component = {UsersContainer} onEnter = {onUsersEnter} />
         <Route path = "/users/:userId" component = {UserContainer} onEnter = {onUserEnter} />
         <Route path="/products/:productId" component={ProductContainer} onEnter={onProductEnter} />
+        <Route path="/addProduct" component={AddProductContainer} />
         <Route path="orders/user/:userId" component={OrdersContainer} onEnter={onOrdersEnter} />
         <Route path="orders/order/:orderId" component={OrderContainer} onEnter={onOrderEnter} />
         <Route path="/cart/:orderId" component={CartContainer} onEnter={onCartEnter} />
@@ -108,6 +125,7 @@ ReactDOM.render(
         <IndexRedirect to="/products" />
       </Route>
     </Router>
-  </Provider>,
+  </Provider>
+  </MuiThemeProvider>,
   document.getElementById('app')
 );

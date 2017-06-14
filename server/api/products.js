@@ -20,17 +20,29 @@ router.param('productId', (req, res, next, id) => {
 
 router.get('/', (req, res, next) => {
   Product.findAll()
-  .then(products => {
-    res.status(200).json(products)
-  })
-  .catch(next)
+    .then(products => {
+      res.status(200).json(products)
+    })
+    .catch(next)
 })
 
 router.get('/:productId', (req, res, next) => {
   res.status(200).json(req.product)
 })
 
+router.get('/search/:product', (req, res, next) => {
+  Product.findOne({
+    where: {
+      title: req.params.product
+    }
+  })
+    .then(product => {
+      res.status(200).json(product)})
+    .catch(next);
+})
+
 router.post('/', (req, res, next) => {
+  console.log(req.body)
   Product.create(req.body)
   .then(createdProduct => {
     res.status(201).json(createdProduct)
