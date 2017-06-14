@@ -28,16 +28,24 @@ const MyNavLinks = (props) => (
     </div>
     {props.cartId &&
       <div>
-        <FlatButton label="View Past Orders" containerElement={<Link to={`/orders/user/${props.userId}`} />} />
+        {
+          props.user && props.user.isGuest ?
+          null :
+          <FlatButton label="View Past Orders" containerElement={<Link to={`/orders/user/${props.user.id}`} />} />
+        }
         <FlatButton label="View Cart" containerElement={<Link to={`/cart/${props.cartId}`} />} />
       </div>
     }
     {
       props.isUserAdmin ?
-      <FlatButton label="View All Users" containerElement={<Link to={'/users/'} /> } /> : ''
+      <div>
+        <FlatButton label="View All Users" containerElement={<Link to={'/users/'} /> } />
+        <FlatButton label="View All Orders" containerElement={<Link to={'/allOrders'} /> } />      
+      </div>
+      : null
     }
     {
-      props.cartId ?
+      props.cartId && !props.user.isGuest ?
       <FlatButton label="Log Out" onClick={() => {props.logOut()}}/>
       : <FlatButton label="Log In" containerElement={<Link to="/signup"/>} />
     }
