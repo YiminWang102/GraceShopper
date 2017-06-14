@@ -1,6 +1,7 @@
 import { RECEIVE_PRODUCTS, RECEIVE_PRODUCT } from '../reducer/constants';
 import { browserHistory } from 'react-router';
 import axios from 'axios';
+import { Link } from 'react-router';
 
 export const receiveProducts = products => {
   return ({
@@ -66,5 +67,17 @@ export const loadAllProducts = () => {
       .then(response => {
         dispatch(receiveProducts(response.data));
       });
+  };
+};
+export const searchProducts = product => {
+  console.log('product query:', product);
+  return dispatch => {
+    axios.get(`/api/products/search/${product}`)
+      .then(res => res.data)
+      .then(prod => {
+        console.log('prod instance: ', prod)
+        browserHistory.push(`/products/${prod.id}`)
+      })
+      .catch(err => console.error(err))
   };
 };

@@ -11,14 +11,13 @@ const MyNavLinks = (props) => (
           <div>
             <input
               type="text"
-              // value={props.memeQuery}
-              placeholder="Enter an meme name"
+              placeholder="Enter an meme's name"
               onChange={props.handleSearchChange}
             />
           </div>
         </div>
         <button type="submit">
-          Search for Memes
+          Find the Meme
         </button>
       </form>
     </div>

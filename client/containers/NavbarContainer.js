@@ -19,7 +19,8 @@ const mapDispatchToProps = dispatch => {
       console.log('logging out');
       dispatch(logout());
     },
-    searchProducts (query) {
+    findProducts (query) {
+      console.log('query is: ', query)
       dispatch(searchProducts(query));
     }
   };
@@ -34,14 +35,14 @@ class NavbarContainer extends Component {
     this.handleSearchChange = this.handleSearchChange.bind(this);
   }
 
-  handleSearchChange (query) {
-    this.setState({ query });
+  handleSearchChange (event) {
+    this.setState({ query: event.target.value });
   }
 
   handleSearchSubmit (event) {
-    // event.preventDefault();
+    event.preventDefault();
     // console.log('this.props is: ', this.props, 'state: ', this.state)
-    this.props.searchProducts(this.state)
+    this.props.findProducts(this.state.query)
   }
 
   render() {
