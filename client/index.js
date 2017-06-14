@@ -5,7 +5,7 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { Router, Route, browserHistory, IndexRoute, IndexRedirect } from 'react-router';
 import store from './store';
-import { Main, Login, Signup, UserHome, Users } from './components';
+import { Main, Login, Signup, UserHome} from './components';
 import { me } from './reducer/user';
 import axios from 'axios';
 
@@ -19,6 +19,7 @@ import UserContainer from './containers/UserContainer';
 import OrdersContainer from './containers/OrdersContainer';
 import OrderContainer from './containers/OrderContainer';
 import CartContainer from './containers/CartContainer';
+import PasswordContainer from './containers/PasswordContainer';
 import AllOrdersContainer from './containers/AllOrdersContainer';
 
 import { receiveProducts, getProductById, loadAllProducts } from './action-creators/products';
@@ -94,6 +95,7 @@ ReactDOM.render(
         <Route path="orders/user/:userId" component={OrdersContainer} onEnter={onOrdersEnter} />
         <Route path="orders/order/:orderId" component={OrderContainer} onEnter={onOrderEnter} />
         <Route path="/cart/:orderId" component={CartContainer} onEnter={onCartEnter} />
+        <Route path="/password" component={PasswordContainer} />
         <Route path="/allOrders" component={AllOrdersContainer} onEnter={onAllOrdersEnter}/>
         <Route path="signup" component={Main}>
           <IndexRoute component={Login} />

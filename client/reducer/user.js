@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { browserHistory } from 'react-router';
-import {SET_CURRENT_USER} from './constants'
-import {setCurrentUser} from '../action-creators/user'
+import {SET_CURRENT_USER, RESET_USER_PASSWORD} from './constants'
+import {setCurrentUser, setUserPassword} from '../action-creators/user'
 
 const GET_USER = 'GET_USER';
 const REMOVE_USER = 'REMOVE_USER';
@@ -28,10 +28,26 @@ export const auth = (email, password, method, name) =>
     axios.post(`/auth/${method}`, { email, password, name})
       .then(res => {
         dispatch(getUser(res.data));
-        browserHistory.push('/');
+        if (res.data.resetPassword) {
+          browserHistory.push('/password');
+        }
+        else {
+          browserHistory.push('/');
+        }
       })
       .catch(error =>
         dispatch(getUser({ error })));
+
+export const setNewPassword = (userId, password) =>
+  dispatch =>
+    axios.put(`/api/users/${userId}`, { password, resetPassword: false})
+      .then(axios.get(`/api/users/${userId}`))
+      .then(res => {
+        dispatch(setUserPassword(res.data));
+        browserHistory.push('/');
+      })
+      .catch(error => console.error(error));
+    
 
 export const logout = () =>
   dispatch =>
@@ -50,6 +66,8 @@ export default function (state = defaultUser, action) {
       return defaultUser;
     case SET_CURRENT_USER:
       return action.currentUser;
+    case RESET_USER_PASSWORD:
+      return action.updatedUser;
     default:
       return state;
   }
