@@ -26,7 +26,9 @@ router.param('orderId', (req, res, next, id) => {
 });
 
 router.get('/', (req, res, next) => {
-  Order.findAll()
+  Order.findAll({
+    order: [['id', 'DESC']]
+  })
     .then(allOrders => {
       res.status(200).json(allOrders);
     })
@@ -91,9 +93,9 @@ router.post('/:orderId', (req, res, next) => {
     let {quantity, productId} = req.body;
     quantity = parseInt(quantity, 10)
     productId = parseInt(productId, 10)
-    console.log('-----------------------------------------------------------', req.order.id)
-    console.log('-----------------------------------------------------------', quantity)
-    console.log('-----------------------------------------------------------', productId)
+    // console.log('-----------------------------------------------------------', req.order.id)
+    // console.log('-----------------------------------------------------------', quantity)
+    // console.log('-----------------------------------------------------------', productId)
     OrderProduct.create({
       quantity,
       productId,
@@ -158,13 +160,18 @@ router.put('/cart/:orderId', (req, res, next) => {
 router.put('/update/:orderId', (req, res, next) => {
   // ex: req.body => {status: 1}
   let newCart = false;
+  let databaseOrder;
   if(req.order.status === 1) newCart = true;
   req.order.update(req.body, {returning: true})
     .then(order => {
-      if(newCart) {
-        createNewCartForUser(order.userId)
-          .then( () => {res.status(200).json(order)})}
-      else res.status(200).json(order);
+      databaseOrder = order;
+      if(newCart) return createNewCartForUser(order.userId);
+          //.then( () => {res.status(200).json(order)})}
+      else return;
+      //order res.status(200).json(order);
+    })
+    .then( () => {
+      res.json(databaseOrder);
     })
     .catch(next);
 });
@@ -172,7 +179,7 @@ router.put('/update/:orderId', (req, res, next) => {
 router.delete('/:orderId', (req, res, next) => {
   req.order.destroy()
     .then(() => {
-      res.sendStatus(204)
+      res.sendStatus(204);
     })
-    .catch(next)
+    .catch(next);
 });

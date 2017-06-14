@@ -2,11 +2,12 @@ import React from 'react';
 import {Link} from 'react-router';
 // import {MenuItem, SelectField, RaisedButton} from 'material-ui'
 
+
 export default function Products(props) {
-  console.log(props)
   let products = props.products
   let handleFilter = props.handleFilter
   let categories = props.categories(products)
+
   return (
     <div>
       <h3>Products</h3>

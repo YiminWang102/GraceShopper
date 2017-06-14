@@ -5,7 +5,7 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { Router, Route, browserHistory, IndexRoute, IndexRedirect } from 'react-router';
 import store from './store';
-import { Main, Login, Signup, UserHome, Users } from './components';
+import { Main, Login, Signup, UserHome} from './components';
 import { me } from './reducer/user';
 import axios from 'axios';
 
@@ -20,9 +20,11 @@ import OrdersContainer from './containers/OrdersContainer';
 import OrderContainer from './containers/OrderContainer';
 import CartContainer from './containers/CartContainer';
 import AddProductContainer from './containers/AddProductContainer'
+import PasswordContainer from './containers/PasswordContainer';
+import AllOrdersContainer from './containers/AllOrdersContainer';
 
 import { receiveProducts, getProductById, loadAllProducts } from './action-creators/products';
-import { getOrdersByUserId, getOrderById, getOrderProductsByOrderId } from './action-creators/orders';
+import { getAllOrders, getOrdersByUserId, getOrderById, getOrderProductsByOrderId } from './action-creators/orders';
 import {getAllUsers} from './reducer/users'
 import {setUser} from './reducer/user'
 import {setUserToView} from './action-creators/vieweduser';
@@ -42,10 +44,9 @@ const requireLogin = (nextRouterState, replace, next) =>
 const onAppEnter = () => {
   const gettingProducts = axios.get('/api/products');
 // Remove Promise.all if unneeded
-  return Promise
-    .all([gettingProducts])
-    .then(responses => responses.map(res => res.data))
-    .then(([products]) => {
+  gettingProducts
+    .then(res => res.data)
+    .then(products => {
       store.dispatch(receiveProducts(products));
     })
     .catch(err => console.log(err));
@@ -80,6 +81,10 @@ const onCartEnter = nextRouterState => {
   store.dispatch(getOrderProductsByOrderId(orderId));
 }
 
+const onAllOrdersEnter = nextRouterState => {
+  store.dispatch(getAllOrders());
+}
+
 ReactDOM.render(
   <Provider store={store}>
     <Router history={browserHistory}>
@@ -92,6 +97,8 @@ ReactDOM.render(
         <Route path="orders/user/:userId" component={OrdersContainer} onEnter={onOrdersEnter} />
         <Route path="orders/order/:orderId" component={OrderContainer} onEnter={onOrderEnter} />
         <Route path="/cart/:orderId" component={CartContainer} onEnter={onCartEnter} />
+        <Route path="/password" component={PasswordContainer} />
+        <Route path="/allOrders" component={AllOrdersContainer} onEnter={onAllOrdersEnter}/>
         <Route path="signup" component={Main}>
           <IndexRoute component={Login} />
           <Route path="login" component={Login} />
