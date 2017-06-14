@@ -11,9 +11,9 @@ const MyNavLinks = (props) => (
           <div>
             <input
               type="text"
-              value={props.memeQuery}
+              // value={props.memeQuery}
               placeholder="Enter an meme name"
-              onChange={props.memeChange}
+              onChange={props.handleSearchChange}
             />
           </div>
         </div>
@@ -35,7 +35,7 @@ const MyNavLinks = (props) => (
     {
       props.cartId ?
       <FlatButton label="Log Out" onClick={() => {props.logOut()}}/>
-      :<FlatButton label="Log In" containerElement={<Link to="/signup"/>} />
+      : <FlatButton label="Log In" containerElement={<Link to="/signup"/>} />
     }
 
   </ToolbarGroup>
