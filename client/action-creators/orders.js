@@ -43,8 +43,8 @@ export const submitOrder = orderId => {
   return ({
     type: SUBMIT_ORDER,
     orderId
-  })
-}
+  });
+};
 
 export const setCart = orderId => {
   return ({
@@ -98,6 +98,14 @@ export const getOrderById = orderId => dispatch => {
     .catch(err => {console.error(err);});
 };
 
+export const getAllOrders = () => dispatch => {
+  axios.get('/api/orders')
+    .then(res => res.data)
+    .then(orders => {
+      dispatch(receiveOrders(orders));
+    });
+};
+
 
 /*
 - Create new Order in table
@@ -112,8 +120,14 @@ export const placeOrder = orderId => dispatch => {
 export const quantityUpdater = (orderId, productId, quantity) => dispatch => {
   axios.put(`/api/orders/cart/${orderId}`, {productId, quantity})
     .then(res => dispatch(updateQuantity(res.data)))
-    .catch(error => console.error(error))
-}
+    .catch(error => console.error(error));
+};
+
+export const updateOrder = (id, status) => {
+  axios.put(`api/orders/update/${id}`,{status})
+    .then(res => res.data)
+    .catch(err => {conosle.error(err);});
+};
 
 export const discountApplicator = (orderId, newPrice, isDiscounted) => dispatch => {
   axios.put(`/api/orders/cart/${orderId}`, {newPrice, isDiscounted})
