@@ -44,56 +44,41 @@ export default function Products(props) {
           </select>
           <button type="submit">Filter Memes by Tag</button>
         </form>
-      <div className="row">
+      <div style={styles.root}>
+      <GridList
+        cellHeight={500}
+        style={styles.gridList}
+      >
+        <Subheader style={styles.subHeader}>Memes</Subheader>
         {
           products.length && props.filteredProducts.length ? props.filteredProducts.map(product => (
-            <div className="col-xs-4" key={ product.id }>
-              <Link className="thumbnail" to={`/products/${product.id}`}>
+
+              <Link  to={`/products/${product.id}`}>
+                <GridTile
+                key={product.id}
+                title={product.title}
+                subtitle={<span> <b>{product.description}</b></span>}
+            >
                 <img src={ product.imageUrl } />
-                <div className="caption">
-                  <h5>
-                    <span>{ product.title }</span>
-                  </h5>
-                </div>
+              </GridTile>
               </Link>
-            </div>
+
           ))
           :
           products.map(product => (
-            <div className="col-xs-4" key={ product.id }>
-              <Link className="thumbnail" to={`/products/${product.id}`}>
-                <img src={ product.imageUrl } />
-                <div className="caption">
-                  <h5>
-                    <span>{ product.title }</span>
-                  </h5>
-                </div>
-              </Link>
-            </div>
-          ))
-        }
-      </div>
+            <Link to={`/products/${product.id}`}>
+            <GridTile
+              key={product.id}
+              title={product.title}
+              subtitle={<span> <b>{product.description}</b></span>}
+            >
+              <img src={product.imageUrl} />
+            </GridTile>
+          </Link>
+        ))}
+      </GridList>
     </div>
+
+      </div>
   );
 }
-
-//     <div style={styles.root}>
-//       <GridList
-//         cellHeight={500}
-//         style={styles.gridList}
-//       >
-//         <Subheader style={styles.subHeader}>Memes</Subheader>
-//         {products && products.map(product => (
-//           <Link to={`/products/${product.id}`}>
-//             <GridTile
-//               key={product.id}
-//               title={product.title}
-//               subtitle={<span> <b>{product.description}</b></span>}
-//             >
-//               <img src={product.imageUrl} />
-//             </GridTile>
-//           </Link>
-//         ))}
-//       </GridList>
-//     </div>
-//   )}
