@@ -3,6 +3,11 @@ import { Link } from 'react-router';
 import PropTypes from 'prop-types';
 import {AppBar, ToolbarGroup, FlatButton} from 'material-ui';
 
+const styles = {
+  AppBar: {
+    backgroundColor: '#80ff0a'
+  }
+}
 const MyNavLinks = (props) => (
   <ToolbarGroup>
     <div>
@@ -49,9 +54,8 @@ const MyAppbar = (props) => (
     <AppBar
       iconElementLeft={<FlatButton label="home" containerElement={<Link to="/"/>} />}
       title="MemeShopper"
-      iconElementRight={<MyNavLinks
-                          {...props}
- />}
+      iconElementRight={<MyNavLinks {...props} />}
+      style = {styles.AppBar}
     />
 );
 

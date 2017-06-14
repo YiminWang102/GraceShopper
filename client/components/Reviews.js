@@ -8,11 +8,11 @@ export default function Reviews (props) {
   console.log('rev props: ', props);
   return (
     <div>
+      <h1>Reviews:</h1>
       {
         reviews && props.currentUser.isAdmin && reviews.map(review => (
           <div key={review.id} className="review">
             <div>
-              <h3>Name: { props.currentUser.name && props.currentUser.name }</h3>
               <h3>Rating: { review.rating }</h3>
               <h5> { review.text } </h5>
               ________________________
