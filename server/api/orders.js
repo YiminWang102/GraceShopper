@@ -98,7 +98,7 @@ router.post('/:orderId', (req, res, next) => {
     // console.log('-----------------------------------------------------------', productId)
     Product.findById(productId)
     .then((product) => {
-      return req.order.addProduct(product, {through: {quantity}})
+      return req.order.addProduct(product, {through: {quantity: quantity}})
     })
     .then(() => {
         res.status(201).send(`Product ID: ${req.body.productId} added to order ${req.order.id}`)

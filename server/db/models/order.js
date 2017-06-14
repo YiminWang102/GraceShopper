@@ -32,27 +32,33 @@ module.exports = db.define('order', {
   instanceMethods: {
     getTotalPrice: function() {
       let totalPrice = 0
-      let quantities = []
-      return OrderProduct.findAll({
-        where: {
-          orderId: this.id
-        }
-      })
-       .then(itemsInOrder => {
-         return Promise.all(itemsInOrder.map((item) => {
-           quantities.push(item.quantity)
-           return Product.findById(item.productId)
-         }))
+      return this.getProducts({through: {attributes: ['quantity']}})
+      .then(itemsInOrder => {
+        itemsInOrder.forEach(item => {
+          console.log(item.orderproduct.quantity)
+          totalPrice += item.orderproduct.quantity * item.price
+        })
+        //  console.log(itemsInOrder)
+        //  return Promise.all(itemsInOrder.map((item) => {
+        //    console.log(item.orderproduct)
+        //    quantities.push(item.orderproduct.quantity)
+        //  }))
+          if (this.isDiscounted) {
+            return (totalPrice / 100) / 2
+          }
+          else {
+            return totalPrice / 100
+          }
        })
-       .then(result => {
-         result.forEach((item, index) => {
-           totalPrice += (item.price / 100) * quantities[index]
-         })
-         if (this.isDiscounted){
-           return totalPrice / 2
-         }
-         return totalPrice
-       })
+      //  .then(result => {
+      //    result.forEach((item, index) => {
+      //      totalPrice += (item.orderproduct.price / 100) * quantities[index]
+      //    })
+      //    if (this.isDiscounted){
+      //      return totalPrice / 2
+      //    }
+      //    return totalPrice
+      //  })
        .catch(err => {
         console.error(err);
        })
