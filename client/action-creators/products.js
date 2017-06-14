@@ -1,4 +1,4 @@
-import { RECEIVE_PRODUCTS, RECEIVE_PRODUCT } from '../reducer/constants';
+import { RECEIVE_PRODUCTS, RECEIVE_PRODUCT, FILTER_PRODUCTS, CREATE_PRODUCT } from '../reducer/constants';
 import { browserHistory } from 'react-router';
 import axios from 'axios';
 
@@ -14,6 +14,20 @@ export const receiveProduct = product => {
     product
 })};
 
+export const filterProducts = category => {
+  return ({
+    type: FILTER_PRODUCTS,
+    category
+  })
+}
+
+export const createProduct = product => {
+  return ({
+    type: CREATE_PRODUCT,
+    product
+  })
+}
+
 export const getProductById = productId => {
   return dispatch => {
     axios.get(`/api/products/${productId}`)
@@ -22,6 +36,11 @@ export const getProductById = productId => {
       });
   };
 };
+
+export const productFilter = dispatch => {
+  axios.get('/api/products')
+  .then(res => dispatch(filterProducts(res.data)))
+}
 
 export const addNewProduct = (productName, productNickname) => {
   return (dispatch, getState) => {
