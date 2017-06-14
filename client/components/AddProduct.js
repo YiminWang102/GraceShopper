@@ -12,4 +12,4 @@ export default function AddProduct({handleNewProductSubmit}) {
       <button type="submit"> Add a New Meme </button>
     </form>
   )
-}
+} 
