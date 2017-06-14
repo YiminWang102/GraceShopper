@@ -7,6 +7,9 @@ const setSaltAndPassword = user => {
     user.salt = user.Model.generateSalt();
     user.password = user.Model.encryptPassword(user.password, user.salt);
   }
+  else {
+    console.log('Password not changed');
+  }
 };
 
 module.exports = db.define('user', {
