@@ -45,8 +45,6 @@ router.post('/', (req, res, next) => {
     .catch(next);
 });
 
-// TODO: make sure only admins can hit this route
-//TODO maybe reviews can hit this route to change their password (we'll see)
 router.put('/:reviewId', (req, res, next) => {
   req.review.update(req.body)
     .then( affectedArr => {
@@ -56,7 +54,6 @@ router.put('/:reviewId', (req, res, next) => {
     .catch(next);
 });
 
-//TODO make sure only admins can hit this route
 router.delete('/:reviewId', (req, res, next) => {
   req.review.destroy()
     .then( () => {

@@ -56,7 +56,7 @@ module.exports = router
       };
       User.create(user)
         .then(createdUser => {
-          return createNewCartForUser(createdUser.id)
+          return createNewCartForUser(createdUser.id);
         })
         .then(updatedUser => {
           req.login(updatedUser, err => err ? next(err) : res.json(updatedUser));

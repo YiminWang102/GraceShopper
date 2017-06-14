@@ -55,7 +55,7 @@ export const deleteProductById = (productId) => {
       .then(product => {
         const newListOfProducts = getState().products.list.concat([product]);
         dispatch(receiveProducts(newListOfProducts));
-        browserHistory.push('/')
+        browserHistory.push('/');
       });
   };
 };

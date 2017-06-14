@@ -37,15 +37,15 @@ export default function (state = initialOrdersState, action) {
     case UPDATE_QUANTITY:
       for (let i = 0; i < state.selected.orderProducts.length; i++) {
         if (state.selected.orderProducts[i].id === action.productId) {
-          newState.selected.orderProducts[i].quantity = action.quantity
+          newState.selected.orderProducts[i].quantity = action.quantity;
           break;
         }
       }
       break;
 
     case ADD_DISCOUNT:
-      newState.selected.orderProducts.totalPrice = action.newPrice
-      newState.selected.orderProducts.isDiscounted = true
+      newState.selected.orderProducts.totalPrice = action.newPrice;
+      newState.selected.orderProducts.isDiscounted = true;
       break;
 
     default:

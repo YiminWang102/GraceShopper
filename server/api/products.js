@@ -1,7 +1,7 @@
-const Product = require('../db/models/product')
-const router = require('express').Router()
+const Product = require('../db/models/product');
+const router = require('express').Router();
 
-module.exports = router
+module.exports = router;
 
 router.param('productId', (req, res, next, id) => {
   Product.findById(id)
@@ -21,22 +21,22 @@ router.param('productId', (req, res, next, id) => {
 router.get('/', (req, res, next) => {
   Product.findAll()
   .then(products => {
-    res.status(200).json(products)
+    res.status(200).json(products);
   })
-  .catch(next)
-})
+  .catch(next);
+});
 
 router.get('/:productId', (req, res, next) => {
-  res.status(200).json(req.product)
-})
+  res.status(200).json(req.product);
+});
 
 router.post('/', (req, res, next) => {
   Product.create(req.body)
   .then(createdProduct => {
-    res.status(201).json(createdProduct)
+    res.status(201).json(createdProduct);
   })
-  .catch(next)
-})
+  .catch(next);
+});
 
 router.put('/:productId', (req, res, next) => {
   req.product.update(req.body)
@@ -44,8 +44,8 @@ router.put('/:productId', (req, res, next) => {
     if (!affectedArr[0]) res.sendStatus(204);
     else res.sendStatus(200);
   })
-  .catch(next)
-})
+  .catch(next);
+});
 
 router.delete('/:productId', (req, res, next) => {
   req.product.destroy()
@@ -53,4 +53,4 @@ router.delete('/:productId', (req, res, next) => {
     res.sendStatus(204);
   })
   .catch(next);
-})
+});

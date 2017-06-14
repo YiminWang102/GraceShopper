@@ -59,8 +59,8 @@ export const applyDiscount = (orderId, newPrice, isDiscounted) => {
     orderId,
     newPrice,
     isDiscounted
-  })
-}
+  });
+};
 
 export const newOrderCreator = userId => dispatch => {
   axios.post('/api/orders', {userId})
@@ -133,7 +133,7 @@ export const discountApplicator = (orderId, newPrice, isDiscounted) => dispatch 
   axios.put(`/api/orders/cart/${orderId}`, {newPrice, isDiscounted})
   .then(res => res.data)
   .then(order => {
-    dispatch(applyDiscount(order.id, order.totalPrice, order.isDiscounted))
+    dispatch(applyDiscount(order.id, order.totalPrice, order.isDiscounted));
   })
-  .catch(error => console.error(error))
-}
+  .catch(error => console.error(error));
+};

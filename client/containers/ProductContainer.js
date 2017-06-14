@@ -1,6 +1,6 @@
 import Product from '../components/Product';
 import { connect } from 'react-redux';
-import {newOrderProductCreator} from '../action-creators/orderProducts'
+import {newOrderProductCreator} from '../action-creators/orderProducts';
 const mapStateToProps = state => {
   return {
     product: state.products.selected,
@@ -16,8 +16,8 @@ const mapDispatchToProps = (dispatch, ownProps) => {
       event.preventDefault();
       dispatch(newOrderProductCreator(event.target.button.value, ownProps.params.productId, event.target.quantity.value));
     }
-  }
-}
+  };
+};
 
 const ProductContainer = connect(mapStateToProps, mapDispatchToProps)(Product);
 

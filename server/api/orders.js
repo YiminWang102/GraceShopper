@@ -40,11 +40,11 @@ router.get('/:orderId', (req, res, next) => {
   .then(order => {
     order.getTotalPrice()
     .then((total) => {
-      return order.update({totalPrice: total}, {returning: true})
+      return order.update({totalPrice: total}, {returning: true});
     })
     .then((updatedOrder) => {
-      res.json(updatedOrder)
-    })
+      res.json(updatedOrder);
+    });
   })
   .catch(next);
 });
@@ -57,7 +57,7 @@ router.get('/cart/:userId', (req, res, next) => {
     }
   })
     .then(order => {
-      res.json(order)
+      res.json(order);
     })
     .catch(next);
 });
@@ -87,22 +87,19 @@ router.post('/', (req, res, next) => {
 
 router.post('/:orderId', (req, res, next) => {
   if (!req.order) {
-    next()
+    next();
   }
   else {
     let {quantity, productId} = req.body;
-    quantity = parseInt(quantity, 10)
-    productId = parseInt(productId, 10)
-    // console.log('-----------------------------------------------------------', req.order.id)
-    // console.log('-----------------------------------------------------------', quantity)
-    // console.log('-----------------------------------------------------------', productId)
+    quantity = parseInt(quantity, 10);
+    productId = parseInt(productId, 10);
     OrderProduct.create({
       quantity,
       productId,
       orderId: req.order.id
     })
       .then(() => {
-        res.status(201).send(`Product ID: ${req.body.productId} added to order ${req.order.id}`)
+        res.status(201).send(`Product ID: ${req.body.productId} added to order ${req.order.id}`);
       })
       .catch(next);
   }
@@ -114,11 +111,10 @@ router.put('/cart/:orderId', (req, res, next) => {
   if (req.body.isDiscounted) {
     req.order.update({totalPrice: req.body.newPrice, isDiscounted: req.body.isDiscounted}, {returning: true})
     .then((updatedOrder) => {
-      res.json(updatedOrder)
-    })
+      res.json(updatedOrder);
+    });
   }
   else {
-    console.log('------------------------------------' + req.body.quantity + '----------------' + req.order.id)
     OrderProduct.findOne({
       where: {
         orderId: req.order.id,
@@ -126,30 +122,29 @@ router.put('/cart/:orderId', (req, res, next) => {
       }
     })
       .then(foundOrderProduct => {
-                console.log('------------------------------------' + foundOrderProduct + '----------------')
         // If quantity is 0, user is effectively removing product from their order
         let quantityPromise = (req.body.quantity > 0) ? foundOrderProduct.update({quantity: req.body.quantity}, {returning: true}) : foundOrderProduct.destroy();
-        return quantityPromise
+        return quantityPromise;
      })
       .then(quantityPromiseResult => {
         // destroy() resolves to an integer
         if (typeof quantityPromiseResult === 'number') {
           return req.order.getTotalPrice()
             .then(result => {
-              return req.order.update({totalPrice: result})
+              return req.order.update({totalPrice: result});
             })
             .then(() => {
               res.status(204).send(`Deleted product ${req.body.productId} from order ${req.order.id}`);
-            })
+            });
         }
         else {
           return req.order.getTotalPrice()
             .then(result => {
-              return req.order.update({totalPrice: result})
+              return req.order.update({totalPrice: result});
             })
             .then(() => {
-              res.status(204).json(quantityPromiseResult)
-            })
+              res.status(204).json(quantityPromiseResult);
+            });
         }
       })
       .catch(next);
@@ -158,7 +153,6 @@ router.put('/cart/:orderId', (req, res, next) => {
 
 // Admin route for updating status of Order
 router.put('/update/:orderId', (req, res, next) => {
-  // ex: req.body => {status: 1}
   let newCart = false;
   let databaseOrder;
   if(req.order.status === 1) newCart = true;
@@ -166,9 +160,7 @@ router.put('/update/:orderId', (req, res, next) => {
     .then(order => {
       databaseOrder = order;
       if(newCart) return createNewCartForUser(order.userId);
-          //.then( () => {res.status(200).json(order)})}
       else return;
-      //order res.status(200).json(order);
     })
     .then( () => {
       res.json(databaseOrder);

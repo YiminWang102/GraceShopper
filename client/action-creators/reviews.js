@@ -12,8 +12,8 @@ export const submitReview = reviewId => {
   return ({
     type: SUBMIT_REVIEW,
     reviewId
-  })
-}
+  });
+};
 
 export const getReviewsByProductId = productId => dispatch => {
   axios.get(`/api/reviews/products/${productId}`)

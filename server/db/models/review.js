@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize');
 const db = require('../db');
 
-const NUM_CHARS = 5
+const NUM_CHARS = 5;
 
 module.exports = db.define('review', {
   text: {

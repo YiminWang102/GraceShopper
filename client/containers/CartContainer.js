@@ -1,6 +1,6 @@
 import Cart from '../components/Cart';
 import { connect } from 'react-redux';
-import {placeOrder, quantityUpdater, discountApplicator} from '../action-creators/orders'
+import {placeOrder, quantityUpdater, discountApplicator} from '../action-creators/orders';
 
 const mapStateToProps = (state) => {
   return {
@@ -20,9 +20,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     },
 
     handlePromoCode: (event) => {
-      let cartInfo = event.target.promoSubmit.value.split(' ').map(val => parseInt(val, 10))
+      let cartInfo = event.target.promoSubmit.value.split(' ').map(val => parseInt(val, 10));
       if (event.target.promo.value === 'hotgeoff') {
-        dispatch(discountApplicator(cartInfo[0], cartInfo[1] / 2, true))
+        dispatch(discountApplicator(cartInfo[0], cartInfo[1] / 2, true));
       }
     }
   };

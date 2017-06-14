@@ -7,4 +7,4 @@ export const setUserToView = (id) => dispatch => {
   axios.get(`/api/users/${id}`)
     .then(res => dispatch(setViewedUser(res.data)))
     .catch(error => console.error(error));
-}
+};
