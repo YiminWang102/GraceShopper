@@ -20,9 +20,6 @@ module.exports = db.define('product', {
   imageUrl: {
     type: Sequelize.STRING,
     defaultValue: 'https://i.redd.it/uh4wjeypg46y.jpg',
-    validate: {
-      isUrl: true
-    }
   },
   price: {
     type: Sequelize.INTEGER,

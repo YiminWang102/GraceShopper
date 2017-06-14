@@ -42,17 +42,11 @@ export const productFilter = dispatch => {
   .then(res => dispatch(filterProducts(res.data)))
 }
 
-export const addNewProduct = (productName, productNickname) => {
-  return (dispatch, getState) => {
-    return axios.post('/api/products', {name: productName, nickname: productNickname})
-      .then(res => res.data)
-      .then(product => {
-        const newListOfProducts = getState().products.list.concat([product]);
-        dispatch(receiveProducts(newListOfProducts));
-        // browserHistory.push('/products');
-      });
-  };
-};
+export const addNewProduct = newProduct => dispatch => {
+  axios.post('/api/products', newProduct)
+  .then(res => dispatch(createProduct(res.data)))
+}
+
 
 export const editProduct = (product, productId) => {
   product.id = productId;

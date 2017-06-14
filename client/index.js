@@ -19,6 +19,7 @@ import UserContainer from './containers/UserContainer';
 import OrdersContainer from './containers/OrdersContainer';
 import OrderContainer from './containers/OrderContainer';
 import CartContainer from './containers/CartContainer';
+import AddProductContainer from './containers/AddProductContainer'
 
 import { receiveProducts, getProductById, loadAllProducts } from './action-creators/products';
 import { getOrdersByUserId, getOrderById, getOrderProductsByOrderId } from './action-creators/orders';
@@ -87,6 +88,7 @@ ReactDOM.render(
         <Route path ="/users" component = {UsersContainer} onEnter = {onUsersEnter} />
         <Route path = "/users/:userId" component = {UserContainer} onEnter = {onUserEnter} />
         <Route path="/products/:productId" component={ProductContainer} onEnter={onProductEnter} />
+        <Route path="/addProduct" component={AddProductContainer} />
         <Route path="orders/user/:userId" component={OrdersContainer} onEnter={onOrdersEnter} />
         <Route path="orders/order/:orderId" component={OrderContainer} onEnter={onOrderEnter} />
         <Route path="/cart/:orderId" component={CartContainer} onEnter={onCartEnter} />

@@ -31,6 +31,7 @@ router.get('/:productId', (req, res, next) => {
 })
 
 router.post('/', (req, res, next) => {
+  console.log(req.body)
   Product.create(req.body)
   .then(createdProduct => {
     res.status(201).json(createdProduct)

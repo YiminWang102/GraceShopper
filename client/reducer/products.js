@@ -1,6 +1,7 @@
 import {
   RECEIVE_PRODUCTS,
-  RECEIVE_PRODUCT
+  RECEIVE_PRODUCT,
+  CREATE_PRODUCT
 } from './constants';
 
 // import {convertProduct, convertProducts} from '../utils';
@@ -23,6 +24,9 @@ export default function (state = initialProductsState, action) {
     case RECEIVE_PRODUCT:
       newState.selected = action.product;
       break;
+
+    case CREATE_PRODUCT:
+      newState.list.push(action.order)
 
     default:
       return state;
