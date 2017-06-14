@@ -96,15 +96,20 @@ router.post('/:orderId', (req, res, next) => {
     // console.log('-----------------------------------------------------------', req.order.id)
     // console.log('-----------------------------------------------------------', quantity)
     // console.log('-----------------------------------------------------------', productId)
-    OrderProduct.create({
-      quantity,
-      productId,
-      orderId: req.order.id
+    Product.findById(productId)
+    .then((product) => {
+      return req.order.addProduct(product, {through: {quantity}})
     })
-      .then(() => {
+    .then(() => {
         res.status(201).send(`Product ID: ${req.body.productId} added to order ${req.order.id}`)
       })
       .catch(next);
+    // Order.addProduct({
+    // })
+    //   .then(() => {
+    //     res.status(201).send(`Product ID: ${req.body.productId} added to order ${req.order.id}`)
+    //   })
+    //   .catch(next);
   }
 });
 
