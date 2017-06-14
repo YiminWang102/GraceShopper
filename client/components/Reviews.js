@@ -5,14 +5,14 @@ var Rating = require('react-rating');
 export default function Reviews (props) {
 
   const reviews = props.reviews;
-  //console.log('rev props: ', props);
+  console.log('rev props: ', props);
   return (
     <div>
+      <h1>Reviews:</h1>
       {
-        reviews && reviews.map(review => (
+        reviews && props.currentUser.isAdmin && reviews.map(review => (
           <div key={review.id} className="review">
             <div>
-              <h3>userId: { props.userId }</h3>
               <h3>Rating: { review.rating }</h3>
               <h5> { review.text } </h5>
               ________________________
@@ -20,10 +20,9 @@ export default function Reviews (props) {
           </div>
         ))
       }
-    <form name="Submit" onSubmit={props.handleSubmit} >
+    <form name="Submit" onSubmit={props.handleSubmit}>
       <Rating
-        onChange={props.handleRatingChange}
-        name="rating"
+        onChange={rate => {props.handleRatingChange(rate)}}
       />
       <br />
       <TextField

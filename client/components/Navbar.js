@@ -3,8 +3,29 @@ import { Link } from 'react-router';
 import PropTypes from 'prop-types';
 import {AppBar, ToolbarGroup, FlatButton} from 'material-ui';
 
+const styles = {
+  AppBar: {
+    backgroundColor: '#80ff0a'
+  }
+}
 const MyNavLinks = (props) => (
   <ToolbarGroup>
+    <div>
+      <form onSubmit={props.handleSearchSubmit}>
+        <div>
+          <div>
+            <input
+              type="text"
+              placeholder="Enter an meme's name"
+              onChange={props.handleSearchChange}
+            />
+          </div>
+        </div>
+        <button type="submit">
+          Find the Meme
+        </button>
+      </form>
+    </div>
     {props.cartId &&
       <div>
         <FlatButton label="View Past Orders" containerElement={<Link to={`/orders/user/${props.userId}`} />} />
@@ -18,8 +39,9 @@ const MyNavLinks = (props) => (
     {
       props.cartId ?
       <FlatButton label="Log Out" onClick={() => {props.logOut()}}/>
-      :<FlatButton label="Log In" containerElement={<Link to="/signup"/>} />
+      : <FlatButton label="Log In" containerElement={<Link to="/signup"/>} />
     }
+
   </ToolbarGroup>
 );
 
@@ -32,12 +54,8 @@ const MyAppbar = (props) => (
     <AppBar
       iconElementLeft={<FlatButton label="home" containerElement={<Link to="/"/>} />}
       title="MemeShopper"
-      iconElementRight={<MyNavLinks 
-                          userId={props.user.id} 
-                          cartId={props.user.cartId} 
-                          logOut={props.logOut}
-                          loggedIn={props.loggedIn}
-                          isUserAdmin={props.isUserAdmin} />}
+      iconElementRight={<MyNavLinks {...props} />}
+      style = {styles.AppBar}
     />
 );
 
