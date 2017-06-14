@@ -3,6 +3,7 @@ const router = require('express').Router();
 const User = require('../db/models/user');
 const Order = require('../db/models/order');
 
+
 module.exports = router
   .post('/login', (req, res, next) => {
     User.findOne({ where: { email: req.body.email } })
@@ -32,16 +33,6 @@ module.exports = router
           .then(user => {
             req.login(user, err => err ? next(err) : res.json(user));
           });
-
-        // Order.create({userId: user.id})
-        //   .then(order => {
-        //     return user.update({
-        //       cartId: order.id
-        //     }, {returning: true});
-        //   })
-        //   .then(user => {
-        //     req.login(user, err => err ? next(err) : res.json(user));
-        //   });
       })
       .catch(err => {
         if (err.name === 'SequelizeUniqueConstraintError')
@@ -53,7 +44,24 @@ module.exports = router
     req.logout();
     res.redirect('/');
   })
-  .get('/me', (req, res) => {
-    res.json(req.user);
+  .get('/me', (req, res, next) => {
+    if(req.user) res.json(req.user);
+    else{
+      const rand = Math.random().toString();
+      const user = {
+        name: rand,
+        email: rand + '@yo.com',
+        isGuest: true,
+        pw: rand
+      };
+      User.create(user)
+        .then(createdUser => {
+          return createNewCartForUser(createdUser.id)
+        })
+        .then(updatedUser => {
+          req.login(updatedUser, err => err ? next(err) : res.json(updatedUser));
+         })
+        .catch(next);
+    }
   })
   .use('/google', require('./google'));

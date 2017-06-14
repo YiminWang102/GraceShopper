@@ -11,10 +11,7 @@ const createNewCartForUser = userId => {
           return user.update({
             cartId: order.id
           }, {returning: true});
-        })
-        .then((updatedUser) => {
-          console.log('----------------------------------------', updatedUser.cartId)
-        })
+        });
     });
 };
 

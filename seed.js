@@ -26,6 +26,7 @@ const data = {
         {name: "Jason", email: 'jason@jason.com', password: 'jason'},
         {name: "Eli", email: 'eli@eli.com', password: 'eli'},
         {name: "Emily", email: 'emily@emily.com', password: 'emily'},
+        {name: "Yimin", email: "yimin@yimin.yimin", password: 'yimin', isAdmin: true}
     ],
     reviews: [
         {rating: 3, text: 'Gave me too much euphoria.', userId: 1, productId: 5},
