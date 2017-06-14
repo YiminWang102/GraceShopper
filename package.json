@@ -4,7 +4,7 @@
   "description": "Some boilerplate code to get you started - get shakin'!",
   "main": "index.js",
   "scripts": {
-    "postinstall": "webpack",
+    "postinstall": "webpack && node seed",
     "start": "node server",
     "start-server": "nodemon server",
     "build-client": "webpack -w",
