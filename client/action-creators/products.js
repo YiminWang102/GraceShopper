@@ -1,4 +1,4 @@
-import { RECEIVE_PRODUCTS, RECEIVE_PRODUCT } from '../reducer/constants';
+import { RECEIVE_PRODUCTS, RECEIVE_PRODUCT, FILTER_PRODUCTS, CREATE_PRODUCT } from '../reducer/constants';
 import { browserHistory } from 'react-router';
 import axios from 'axios';
 import { Link } from 'react-router';
@@ -15,6 +15,20 @@ export const receiveProduct = product => {
     product
 })};
 
+export const filterProducts = category => {
+  return ({
+    type: FILTER_PRODUCTS,
+    category
+  })
+}
+
+export const createProduct = product => {
+  return ({
+    type: CREATE_PRODUCT,
+    product
+  })
+}
+
 export const getProductById = productId => {
   return dispatch => {
     axios.get(`/api/products/${productId}`)
@@ -24,17 +38,16 @@ export const getProductById = productId => {
   };
 };
 
-export const addNewProduct = (productName, productNickname) => {
-  return (dispatch, getState) => {
-    return axios.post('/api/products', {name: productName, nickname: productNickname})
-      .then(res => res.data)
-      .then(product => {
-        const newListOfProducts = getState().products.list.concat([product]);
-        dispatch(receiveProducts(newListOfProducts));
-        // browserHistory.push('/products');
-      });
-  };
-};
+export const productFilter = dispatch => {
+  axios.get('/api/products')
+  .then(res => dispatch(filterProducts(res.data)))
+}
+
+export const addNewProduct = newProduct => dispatch => {
+  axios.post('/api/products', newProduct)
+  .then(res => dispatch(createProduct(res.data)))
+}
+
 
 export const editProduct = (product, productId) => {
   product.id = productId;
