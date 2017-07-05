@@ -9,9 +9,7 @@ const router = require('express').Router();
 module.exports = router;
 
 router.param('orderId', (req, res, next, id) => {
-  Order.findById(id, {
-    include: [Product]
-  })
+  Order.findById(id)
     .then(order => {
       if (!order) {
         const err = Error('order not found');
@@ -86,31 +84,23 @@ router.post('/', (req, res, next) => {
 });
 
 router.post('/:orderId', (req, res, next) => {
-  if (!req.order) {
-    next()
-  }
-  else {
-    let {quantity, productId} = req.body;
-    quantity = parseInt(quantity, 10)
-    productId = parseInt(productId, 10)
-    // console.log('-----------------------------------------------------------', req.order.id)
-    // console.log('-----------------------------------------------------------', quantity)
-    // console.log('-----------------------------------------------------------', productId)
-    Product.findById(productId)
-    .then((product) => {
-      return req.order.addProduct(product, {through: {quantity: quantity}})
+  let {quantity, productId} = req.body;
+  let newQuantity = parseInt(quantity, 10)
+  productId = parseInt(productId, 10)
+
+  Product.findById(productId)
+  .then((product) => {
+    return req.order.addProduct(product, {returning: true})
+  })
+  .then((product) => {
+
+    return product[0][0].update({quantity: newQuantity})
+  .then(() => {
+    res.status(201).send(`Product ID: ${req.body.productId} added to order ${req.order.id}`)
     })
-    .then(() => {
-        res.status(201).send(`Product ID: ${req.body.productId} added to order ${req.order.id}`)
-      })
-      .catch(next);
-    // Order.addProduct({
-    // })
-    //   .then(() => {
-    //     res.status(201).send(`Product ID: ${req.body.productId} added to order ${req.order.id}`)
-    //   })
-    //   .catch(next);
-  }
+    })
+    .catch(next);
+
 });
 
 // User route for changing quantity of a Product in their Order or adding a Promo Code
@@ -123,7 +113,6 @@ router.put('/cart/:orderId', (req, res, next) => {
     })
   }
   else {
-    console.log('------------------------------------' + req.body.quantity + '----------------' + req.order.id)
     OrderProduct.findOne({
       where: {
         orderId: req.order.id,
@@ -131,8 +120,6 @@ router.put('/cart/:orderId', (req, res, next) => {
       }
     })
       .then(foundOrderProduct => {
-                console.log('------------------------------------' + foundOrderProduct + '----------------')
-        // If quantity is 0, user is effectively removing product from their order
         let quantityPromise = (req.body.quantity > 0) ? foundOrderProduct.update({quantity: req.body.quantity}, {returning: true}) : foundOrderProduct.destroy();
         return quantityPromise
      })
@@ -171,9 +158,7 @@ router.put('/update/:orderId', (req, res, next) => {
     .then(order => {
       databaseOrder = order;
       if(newCart) return createNewCartForUser(order.userId);
-          //.then( () => {res.status(200).json(order)})}
       else return;
-      //order res.status(200).json(order);
     })
     .then( () => {
       res.json(databaseOrder);
