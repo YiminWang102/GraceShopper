@@ -2,7 +2,7 @@ const Promise = require('bluebird');
 const db = require('./server/db');
 const Product = require('./server/db/models/product');
 const User = require('./server/db/models/user');
-ABBA
+ONCE
 const data = {
     products: [
         {title: 'Meme1', description: 'Dank', inventory: 9001, price: 1337, category: 'dank,meme,forever'},
